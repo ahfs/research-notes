@@ -150,18 +150,18 @@ ninja.data = [{
           window.open("mailto:%75%73%65_%6C%69%6E%6B%65%64%69%6E_%74%6F_%6D%65%73%73%61%67%65_%6D%65", "_blank");
         },
       },{
-        id: 'social-inspire',
-        title: 'Inspire HEP',
+        id: 'social-linkedin',
+        title: 'LinkedIn',
         section: 'Socials',
         handler: () => {
-          window.open("https://inspirehep.net/authors/", "_blank");
+          window.open("https://www.linkedin.com/in/amir-hajian-744674135", "_blank");
         },
       },{
         id: 'social-scholar',
         title: 'Google Scholar',
         section: 'Socials',
         handler: () => {
-          window.open("https://scholar.google.com/citations?user=qc6CJjYAAAAJ", "_blank");
+          window.open("https://scholar.google.com/citations?user=CobR4yQAAAAJ", "_blank");
         },
       },{
       id: 'light-theme',
