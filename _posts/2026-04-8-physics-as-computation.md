@@ -12,22 +12,22 @@ related_publications: false
 
 > How light, heat, chemistry, and noise are replacing transistors as the fundamental substrate of intelligence — a critical survey of six paradigms reshaping the field.
 
-For seven decades, computing has meant silicon. Transistors etched into crystalline wafers, toggling between 0 and 1 at ever-smaller scales, ever-faster clock speeds — a paradigm so dominant that most people have never imagined an alternative. But the physics of miniaturization is running out of runway. Heat walls, quantum tunneling at nanometer scales, and the staggering energy appetite of modern AI are forcing researchers to ask a more radical question: what if the computer *was* the physics, rather than fighting it?
+For seven decades, computing has meant silicon. Transistors etched into crystalline wafers, toggling between 0 and 1 at ever-smaller scales, ever-faster clock speeds; a paradigm so dominant that most people have never imagined an alternative. But the physics of miniaturization is running out of runway. Heat walls, quantum tunneling at nanometer scales, and the staggering energy appetite of modern AI are forcing researchers to ask a more radical question: what if the computer *was* the physics, rather than fighting it?
 
-In 2026, that question has produced a Cambrian explosion of unconventional computing paradigms. Researchers are not merely tweaking chip architectures — they are rethinking what computation *is*, drawing on thermodynamics, optics, molecular biology, and neuroscience. This article surveys six of the most active and scientifically credible areas, explains the core ideas with precision, and flags where bold claims deserve scrutiny.
+In 2026, that question has produced a Cambrian explosion of unconventional computing paradigms. Researchers are not merely tweaking chip architectures; they are rethinking what computation *is*, drawing on thermodynamics, optics, molecular biology, and neuroscience. This article surveys six of the most active and scientifically credible areas, explains the core ideas with precision, and flags where bold claims deserve scrutiny.
 
 ---
 
 ## 01 — Thermodynamic Computing
-### Harnessing the Noise — *Physics-Powered AI Acceleration*
+### Harnessing the Noise: *Physics-Powered AI Acceleration*
 
 `🔥 Hottest in 2026` `Hardware shipping` `Probabilistic AI` `Energy efficiency`
 
-Every conventional computer is engaged in a perpetual war against its own physics. Transistors must operate thousands of times above the thermal noise floor to produce reliable binary outputs — a design philosophy that guarantees enormous energy waste. Thermodynamic computing takes the opposite stance: **embrace the noise, and use it as fuel.**
+Every conventional computer is engaged in a perpetual war against its own physics. Transistors must operate thousands of times above the thermal noise floor to produce reliable binary outputs, a design philosophy that guarantees enormous energy waste. Thermodynamic computing takes the opposite stance: **embrace the noise, and use it as fuel.**
 
-> **Key Concept:** The core principle: if a physical device operates at energy scales comparable to thermal energy (k_B T), it will spontaneously fluctuate between states. By carefully engineering the interactions between components, you can program these fluctuations to *solve problems* — the system "relaxes" toward its lowest-energy configuration, and that configuration is the answer.
+> **Key Concept:** The core principle: if a physical device operates at energy scales comparable to thermal energy ($k_B\  T$), it will spontaneously fluctuate between states. By carefully engineering the interactions between components, you can program these fluctuations to *solve problems*و the system "relaxes" toward its lowest-energy configuration, and that configuration is the answer.
 
-The hardware manifestation is the **Stochastic Processing Unit (SPU)**, pioneered by Normal Computing. Their prototype — eight RLC circuits (resistors, inductors, capacitors) coupled via switched capacitances on a printed circuit board — has already demonstrated Gaussian sampling and matrix inversion. A 2025 paper in *Nature Communications* showed it performing thermodynamic linear algebra, tasks that underpin generative AI and probabilistic modeling. Normal Computing has since announced the successful tape-out of **CN101**, described as the world's first thermodynamic computing chip designed for AI and HPC data centers.
+The hardware manifestation is the **Stochastic Processing Unit (SPU)**, pioneered by Normal Computing. Their prototypeو eight RLC circuits (resistors, inductors, capacitors) coupled via switched capacitances on a printed circuit board  has already demonstrated Gaussian sampling and matrix inversion. A 2025 paper in *Nature Communications* showed it performing thermodynamic linear algebra, tasks that underpin generative AI and probabilistic modeling. Normal Computing has since announced the successful tape-out of **CN101**, described as the world's first thermodynamic computing chip designed for AI and HPC data centers.
 
 A competing startup, **Extropic**, is pursuing a more ambitious vision: thermodynamic ASICs as a general-purpose acceleration layer sitting alongside CPUs and GPUs, routing computations to whichever physical substrate best matches the problem's structure.
 
