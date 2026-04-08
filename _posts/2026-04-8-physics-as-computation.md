@@ -10,6 +10,7 @@ related_posts: false
 related_publications: false
 ---
 
+> How light, heat, chemistry, and noise are replacing transistors as the fundamental substrate of intelligence — a critical survey of six paradigms reshaping the field.
 
 For seven decades, computing has meant silicon. Transistors etched into crystalline wafers, toggling between 0 and 1 at ever-smaller scales, ever-faster clock speeds — a paradigm so dominant that most people have never imagined an alternative. But the physics of miniaturization is running out of runway. Heat walls, quantum tunneling at nanometer scales, and the staggering energy appetite of modern AI are forcing researchers to ask a more radical question: what if the computer *was* the physics, rather than fighting it?
 
