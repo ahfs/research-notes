@@ -1,189 +1,218 @@
 cv:
-  name: Albert Einstein
-  label: Scientist
-  email: einstein@example.com
-  location: Princeton, NJ
+  name: Amir Hajian, Ph.D.
+  label: "AI Research & Product Exec"
+  email: amirhajian.work@gmail.com
+  location: Toronto, ON
   image: ""
-  summary: A German-born theoretical physicist, widely ranked among the greatest and most influential scientists of all time
+  summary: "Seasoned AI research executive and scientist with 10+ years building and leading multi-disciplinary teams of researchers, engineers, and data specialists across academia and industry. Deep expertise in multimodal and generative AI, responsible AI (robustness, bias, safety, evaluation), and post-training adaptation of foundation models in enterprise and regulated contexts. Author of 70+ peer-reviewed publications (h-index 47); strong track record translating frontier research into scalable, trustworthy production systems—from wearables to agentic AI in financial services. Experienced in organizational planning, mentorship, and growing senior technical talent."
+
 
   social_networks:
-    - network: X
-      username: AlbertEinstein
-    - network: GitHub
-      username: example
+    #- network: X
+    #  username: AmirHajian
+    #- network: GitHub
+    #  username: amirhajian
     - network: LinkedIn
-      username: example
+      username: amir-hajian-744674135
 
   address:
-    street: 2712 Broadway St
-    city: San Francisco
-    region: California
-    postalCode: CA 94115
-    countryCode: US
+    street: ""
+    city: Toronto
+    region: Ontario
+    postalCode: ""
+    countryCode: CA
 
   sections:
     Education:
-      - institution: University of Zurich
-        location: Zurich, Switzerland
-        url: https://www.uzh.ch/
-        area: Physics
-        studyType: PhD
-        start_date: 1900
-        end_date: 1905
+      - institution: Princeton University
+        location: Princeton, NJ
+        url: https://www.princeton.edu/
+        area: Data Driven Cosmology
+        studyType: Postdoctoral Researcher
+        start_date: 2006
+        end_date: 2010
         score: ""
-        courses: "Theory of Relativity"
-        highlights:
-          - Description 1.
-          - Description 2.
+        courses: ""
+        highlights: []
 
-      - institution: Eidgenössische Technische Hochschule
-        location: Zurich, Switzerland
+      - institution: Inter University Centre for Astronomy and Astrophysics
+        location: ""
+        area: Astrophysics
+        studyType: Ph.D.
+        start_date: ""
+        end_date: ""
+        highlights: []
+
+      - institution: Institute for Advanced Studies in Basic Sciences
+        location: ""
         area: Physics
-        studyType: Federal teaching diploma
-        start_date: 1896
-        end_date: 1900
-        highlights:
-          - Description 1.
-          - Description 2.
+        studyType: Master of Science
+        start_date: ""
+        end_date: ""
+        highlights: []
+
+      - institution: Sharif University of Technology
+        location: ""
+        area: Physics
+        studyType: Bachelor of Science
+        start_date: ""
+        end_date: ""
+        highlights: []
 
     Experience:
-      - company: Institute for Advanced Study, Princeton University
-        position: Professor of Theoretical Physics
-        location: Princeton University, NJ
-        start_date: 1933
-        end_date: 1955
-        summary: Teaching at Palmer Physical Laboratory (now 302 Frist Campus Center). While not a professor at Princeton, I associated with the physics professors and continued to give lectures on campus.
+      - company: Arteria AI
+        position: Head of Arteria Research Lab
+        location: Toronto, ON
+        start_date: 2024
+        end_date: present
+        summary: "Built and currently heading up Arteria AI Cafe, a research lab for innovating novel techniques in multimodal agentic AI (NLP and computer vision) powered by GenAI. Leading science, engineering, MLOps and product teams to take cutting edge research to product."
         highlights:
-          - Relativity
-          - Description 2.
+          - "Lead the design and building of DAX: a fully agentic suite of applications for all documentation tasks. 40x improvement to efficiency compared to the existing methods."
+          - "VLM/LLM post-training from research to production."
+          - "Full stack agentic AI app development: from infrastructure to launch in production."
+          - "Building powerful multimodal GenAI products based on in-house innovative research on agentic AI that learns in real time."
+          - "Leading research in cutting edge AI, with publications in major conferences including AAAI 2024 and The ACM WebConf 2025."
 
-      - company: California Institute of Technology
-        position: Visiting Professor
-        location: Pasadena, California, US
-        start_date: 1933
-        end_date: 1933
+      - company: Arteria AI
+        position: VP of AI & Chief Scientist
+        location: Toronto, ON
+        start_date: 2021
+        end_date: 2024
+        summary: "Built and managed the R&D organization consisting of teams of AI researchers, data scientists, ML Engineers, MLOps and annotators. Led to Arteria being named as the Most Promising 100 AI Startups by CB Insights and one of the 3 Coolest GenAI startups in FinTech by Gartner in 2023."
         highlights:
-          - Description 1.
-          - Description 2.
+          - "Led the end-to-end design and building of CUCINA: an enterprise-grade, compliance-ready multimodal document understanding system for regulated financial services."
+          - "Invented a novel multimodal architecture advancing the state of the art in vision-language modeling. Published in AAAI 2024."
+          - "Making use of Large Language Models (LLMs) and Generative AI for efficient information extraction."
+          - "Founded MLOps at Arteria for efficient productionization of large, complex deep learning models."
+          - "Mentored UWaterloo MS students on Multimodal and Computer Vision research."
 
-      - company: Kaiser Wilhelm Institute for Physics
-        position: Director
-        location: Berlin, Germany
-        start_date: 1917
-        end_date: 1933
-
-      - company: Karl-Ferdinand University
-        position: Professor of Theoretical Physics
-        location: Prague, Czechoslovakia
-        start_date: 1911
-        end_date: 1917
-
-      - company: University of Zurich
-        position: Associate Professor of Theoretical Physics
-        location: Zurich, Switzerland
-        start_date: 1909
-        end_date: 1911
-
-    Volunteer:
-      - company: People's Climate March
-        position: Lead Organizer
-        location: Zurich, Switzerland
-        start_date: 2014-04-01
-        end_date: 2015-07-01
-        summary: Lead organizer for the New York City branch of the People's Climate March, the largest climate march in history.
+      - company: Scribd
+        position: Director of Applied Research
+        location: Toronto, ON
+        start_date: 2019
+        end_date: 2021
+        summary: "Founded Scribd's Applied Research Team in Toronto to build products using machine learning to help customers explore the library, discover great content and read what they love."
         highlights:
-          - "Awarded 'Climate Hero' award by Greenpeace for my efforts organizing the march."
-          - "Men of the year 2014 by Time magazine"
+          - "Hands on AI product management: led the company's efforts to create innovative AI-products using novel machine learning methods for search and recommendation."
+          - "Built end to end products, from ideation to production, leading distributed teams of researchers, engineers and project managers."
+          - "Created a superior user experience using the state of the art in computer vision, NLP, deep learning, statistical modeling and distributed computing in the cloud."
 
-    Awards:
-      - title: Nobel Prize in Physics
-        authors:
-          - "Royal Swedish Academy of Sciences"
-        date: 1921-11-01
-        awarder: Royal Swedish Academy of Sciences
-        url: https://www.nobelprize.org/prizes/physics/1921/einstein/biographical/
-        summary: The Nobel Prizes are five separate prizes that, according to Alfred Nobel's will of 1895, are awarded to 'those who, during the preceding year, have conferred the greatest benefit to humankind.'
+      - company: Thomson Reuters Labs
+        position: Director of AI Research
+        location: Toronto, ON
+        start_date: 2017
+        end_date: 2019
+        summary: "Led company's efforts to build AI-powered solutions at scale to create value and shorten time to market."
+        highlights:
+          - "Designed and led the end-to-end development of an AI as a Service product in the cloud for creating a searchable video database using computer vision, deep learning, cloud computing and NLP."
+          - "Led company's initiative in design and development of an end-to-end AI-powered Risk product from scratch. Patent pending."
+          - "Organized Machine Learning for Finance Professionals Workshop in collaboration with CFA Society, Toronto."
+          - "Organizer of Toronto Deep Learning Meetup since 2015."
 
-      - title: Max Planck Medal
-        authors:
-          - "German Physical Society"
-        date: 2029
-        awarder: German Physical Society
-        summary: Awarded for outstanding scientific achievement
+      - company: Thomson Reuters Labs
+        position: Senior Data Scientist
+        location: "Toronto & Waterloo, ON"
+        start_date: 2015
+        end_date: 2017
+        summary: "Founded the labs in Canada. SME and point of contact for data-driven product development. Built new solutions by rapid prototyping and iterative customer validation."
+        highlights:
+          - "Initiated and built the scientific team in the labs."
+          - "Built 17 POCs in 18 months."
+          - "Successfully led projects from problem definition to production: Recommendation Engine, White House Run App."
 
-    Publications:
-      - title: Zur Elektrodynamik bewegter Körper
-        authors:
-          - Albert Einstein
-        publisher: Annalen der Physik
-        releaseDate: 1905-06-30
-        url: https://en.wikisource.org/wiki/Translation:On_the_Electrodynamics_of_Moving_Bodies
-        summary: It concerned an interpretation of the Michelson–Morley experiment and the properties of light and time. Special relativity incorporates the principle that the speed of light is the same for all inertial observers regardless of the state of motion of the source.
+      - company: CITA, University of Toronto
+        position: Senior Research Associate
+        location: Toronto, ON
+        start_date: 2010
+        end_date: 2015
+        summary: "Designed Machine Learning algorithms to model the universe. Led large international collaborations to extract information from massive noisy data. Supervised research teams and students."
+        highlights:
+          - "Spearheaded creating a modern scientific computing framework for all computing needs of the team."
+          - "Consulted a startup, solved data problems for building wearables devices."
 
-      - title: Über einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen Gesichtspunkt
-        authors:
-          - Albert Einstein
-        publisher: Annalen der Physik
-        releaseDate: 1905-03-18
-        url: https://de.wikisource.org/wiki/Über_einen_die_Erzeugung_und_Verwandlung_des_Lichtes_betreffenden_heuristischen_Gesichtspunkt
-        summary: In the second paper, he applied the quantum theory to light to explain the photoelectric effect. In particular, he used the idea of light quanta (photons) to explain experimental results, but stressed the importance of the experimental results. The importance of his work on the photoelectric effect earned him the Nobel Prize in Physics in 1921.
-
-      - title: Die Grundlage der allgemeinen Relativitätstheorie
-        authors:
-          - Albert Einstein
-        publisher: Annalen der Physik
-        releaseDate: 1916-03-20
-        url: https://de.wikisource.org/wiki/Die_Grundlage_der_allgemeinen_Relativitätstheorie
-        summary: The publication of the theory of general relativity made him internationally famous. He was professor of physics at the universities of Zurich (1909–1911) and Prague (1911–1912), before he returned to ETH Zurich (1912–1914).
+      - company: Department of Physics, Princeton University
+        position: Research Scientist
+        location: Princeton, NJ
+        start_date: 2006
+        end_date: 2010
+        summary: "Designed and built an end to end data analysis pipeline used as the backbone of a large collaborative effort to measure the properties of the universe based on multiwavelength observations using Bayesian statistics and probabilistic programming."
+        highlights: []
 
     Skills:
-      - name: Physics
+      - name: Leadership
         level: Master
-        icon: fa-solid fa-hashtag
-        keywords: "Quantum Mechanics, Quantum Computing, Quantum Information, Quantum Cryptography, Quantum Communication, Quantum Teleportation"
+        icon: fa-solid fa-users
+        keywords: "Building and managing high performing, happy and diverse teams on the foundations of innovation, inclusivity, constant learning and collaborative team culture"
+
+      - name: Product
+        level: Master
+        icon: fa-solid fa-box
+        keywords: "Building powerful products using deep multimodal models combining computer vision and NLP"
+
+      - name: Computer Vision
+        level: Master
+        icon: fa-solid fa-eye
+        keywords: "Vision Language Models (VLMs), Diffusion and Flow Matching GenAI, Object detection, text extraction, scene extraction and semantic segmentation in videos and images"
+
+      - name: NLP
+        level: Master
+        icon: fa-solid fa-language
+        keywords: "Transformers architecture, LLM based Language agents for solving complex problems"
+
+      - name: "Responsible AI & Alignment"
+        level: Master
+        icon: fa-solid fa-shield-halved
+        keywords: "Post-training and fine-tuning of foundation models, evaluation frameworks and benchmarks, robustness, bias/fairness analysis, safety, and explainability in enterprise and regulated contexts"
+
+      - name: MLOps
+        level: Master
+        icon: fa-solid fa-gears
+        keywords: "Optimizing models and pipelines to use massive deep learning models in production at the lowest cost, least latency and shortest development time"
+
+      - name: Programming
+        level: Master
+        icon: fa-solid fa-code
+        keywords: "Python, PyTorch, JAX, Scala; cloud infrastructure on Databricks"
 
     Languages:
-      - name: German
-        summary: "Native speaker"
-
       - name: English
         summary: "Fluent"
 
     Interests:
-      - name: Physics
+      - name: "Multimodal Agentic AI"
         icon: fa-solid fa-tag
-        keywords: "Quantum Mechanics, Quantum Computing, Quantum Information, Quantum Cryptography, Quantum Communication, Quantum Teleportation"
+        keywords: "Multimodal AI, Agentic AI, GenAI, LLMs, VLMs, Post-training, AI for Science"
 
-    Certificates:
-      - name: Machine Learning
-        date: 2018-01-01
-        issuer: Stanford University
-        icon: fa-solid fa-location-dot
-
-      - name: Quantum Computing
-        date: 2018-01-01
-        issuer: Stanford University
-        icon: fa-solid fa-tag
-
-      - name: Quantum Information
-        date: 2018-01-01
-        issuer: Stanford University
-        icon: fa-solid fa-envelope
+    Publications:
+      - title: "70+ peer reviewed articles in top scientific journals (h-index 47)"
+        authors:
+          - Amir Hajian
+        publisher: Various top scientific journals
+        releaseDate: ""
+        url: ""
+        summary: "Popular science articles in the newspapers and magazines. Scientific editor for Scala Data Analysis Cookbook. Citations: 9243, h-index: 47, i10-index: 65."
 
     Projects:
-      - name: Quantum Computing
-        summary: Quantum computing is the use of quantum-mechanical phenomena such as superposition and entanglement to perform computation. Computers that perform quantum computations are known as quantum computers.
+      - name: "DAX - Fully Agentic Documentation Suite"
+        summary: "A fully agentic suite of applications for all documentation tasks. 40x improvement to efficiency compared to existing methods."
         highlights:
-          - Quantum Teleportation
-          - Quantum Cryptography
-        start_date: 2018-01-01
-        end_date: 2018-01-01
+          - "Multimodal Agentic AI"
+          - "NLP and Computer Vision"
+        start_date: 2024
+        end_date: ""
 
-    References:
-      - name: Professor John Doe
-        icon: fa-solid fa-laptop
-        reference: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam condimentum, diam quis convallis euismod, arcu mi ullamcorper lorem, a vestibulum nunc magna at sem. Sed in risus ac felis varius blandit.
+      - name: "CUCINA - Multimodal Document Understanding"
+        summary: "Enterprise-grade, compliance-ready multimodal document understanding system for regulated financial services, extracting structured information from the most complex document layouts using Foundation Models."
+        highlights:
+          - "Vision-Language Modeling"
+          - "Foundation Models"
+        start_date: 2021
+        end_date: 2024
 
-      - name: Professor Jane Smith
-        icon: fa-solid fa-thumbtack
-        reference: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam condimentum, diam quis convallis euismod, arcu mi ullamcorper lorem, a vestibulum nunc magna at sem. Sed in risus ac felis varius blandit.
+    Certificates: []
+
+    Volunteer: []
+
+    Awards: []
+
+    References: []
