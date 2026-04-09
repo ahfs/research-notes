@@ -301,13 +301,11 @@ With gradient estimation in hand, HMC is run on the full 6-parameter LCDM model 
 The autocorrelation lengths tell the story:
 
 
-
-````markdown
 | | $\Omega_b h^2$ | $\Omega_c h^2$ | $\theta$ | $\tau$ | $n_s$ | $A_s$ | **Average** |
 |---|---|---|---|---|---|---|---|
 | **MCMC** | 11.5 | 19.6 | 11.7 | 28.9 | 17.8 | 13.5 | **17.1** |
 | **HMC** | 3.2 | 2.8 | 4.0 | 2.9 | 3.4 | 3.8 | **3.3** |
-````
+
 *Table I: Autocorrelation lengths of the sampled chains from the 6-parameter flat LCDM model.*
 
 The average autocorrelation length drops from **17.1** (Metropolis) to **3.3** (HMC), a factor of ~5 improvement. The power spectra confirm this:
