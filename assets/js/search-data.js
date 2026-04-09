@@ -83,17 +83,6 @@ ninja.data = [{
             window.location.href = "/research-notes/blog/2026/physics-as-computation/";
           
         },
-      },{id: "post-a-distill-style-blog-post",
-        
-          title: "a distill-style blog post",
-        
-        description: "an example of a distill-style blog post and main elements",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/research-notes/blog/2021/distill/";
-          
-        },
       },{id: "news-something-big-is-coming-stay-tuned",
           title: 'Something big is coming, stay tuned …',
           description: "",
