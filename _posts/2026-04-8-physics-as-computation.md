@@ -5,7 +5,7 @@ date: 2026-04-08T 10:30:43-04:00
 description: How light, heat, chemistry, and noise are replacing transistors as the fundamental substrate of intelligence — a critical survey of six paradigms reshaping the field.
 categories: [physics, computation]
 tags: [physics, computation, theory]
-giscus_comments: true
+giscus_comments: false
 related_posts: false
 related_publications: false
 ---

@@ -5,9 +5,11 @@ date: 2026-04-09T 10:30:43-04:00
 description: how to use hamiltonian dynamics to do Bayesian inference more efficiently.
 categories: [bayesian statistics, probabilistic computing]
 tags: [parameter estimation, bayesian inference, MCMC, HMC, cosmology]
-giscus_comments: true
+giscus_comments: false
 related_posts: false
 related_publications: false
+images:
+  lightbox2: true
 ---
 
 > What if the best way to explore the universe's parameters was to stop wandering randomly --- and start rolling downhill?*
@@ -192,9 +194,8 @@ where $P_0 = P(k=0)$ is the zero-frequency power. $E = 1$ is ideal; $E^{-1}$ tel
 ### Test 1: The 6-Dimensional Gaussian
 
 The first test is clean and simple: sample from a 6-dimensional isotropic Gaussian ($\sigma_0 = 1$) using chains of length $N_{\text{samples}} = 8192$.
-````markdown
-![Figure 1: Samples drawn from an isotropic six-dimensional Gaussian distribution using HMC (top) and the Metropolis algorithm with optimal step-size (bottom).](hmc-cosmology-figures/fig1_chains.png)
-````
+
+<a href="https://github.com/ahfs/research-notes/blob/main/_posts/hmc-cosmology-figures/fig1_chains.png" data-lightbox="roadtrip"><img src="https://github.com/ahfs/research-notes/blob/main/_posts/hmc-cosmology-figures/fig1_chains.png" /></a>
 
 *Figure 1: Chain traces from HMC (top) and Metropolis (bottom) sampling a 6D Gaussian. The HMC chain shows rapid, full-amplitude oscillations, it's exploring the distribution efficiently. The Metropolis chain is sluggish by comparison, drifting slowly through parameter space.*
 
@@ -304,12 +305,12 @@ The autocorrelation lengths tell the story:
 
 
 
-
+````markdown
 | | $\Omega_b h^2$ | $\Omega_c h^2$ | $\theta$ | $\tau$ | $n_s$ | $A_s$ | **Average** |
 |---|---|---|---|---|---|---|---|
 | **MCMC** | 11.5 | 19.6 | 11.7 | 28.9 | 17.8 | 13.5 | **17.1** |
 | **HMC** | 3.2 | 2.8 | 4.0 | 2.9 | 3.4 | 3.8 | **3.3** |
-
+````
 *Table I: Autocorrelation lengths of the sampled chains from the 6-parameter flat LCDM model.*
 
 The average autocorrelation length drops from **17.1** (Metropolis) to **3.3** (HMC), a factor of ~5 improvement. The power spectra confirm this:
