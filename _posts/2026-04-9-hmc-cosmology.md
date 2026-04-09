@@ -193,8 +193,7 @@ where $P_0 = P(k=0)$ is the zero-frequency power. $E = 1$ is ideal; $E^{-1}$ tel
 
 The first test is clean and simple: sample from a 6-dimensional isotropic Gaussian ($\sigma_0 = 1$) using chains of length $N_{\text{samples}} = 8192$.
 
-{% include figure.html path="assets/img/blog/hmc-cosmology-figures/fig1_chains.png" alt="description" %}   
-
+{% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig1_chains.png" title="example image" class="img-fluid rounded z-depth-1" %}
 *Figure 1: Chain traces from HMC (top) and Metropolis (bottom) sampling a 6D Gaussian. The HMC chain shows rapid, full-amplitude oscillations, it's exploring the distribution efficiently. The Metropolis chain is sluggish by comparison, drifting slowly through parameter space.*
 
 The numbers tell a striking story:
@@ -203,7 +202,7 @@ The numbers tell a striking story:
 
 The power spectra reveal the difference even more clearly:
 
-![Figure 2: Power spectrum P(k) for HMC (solid red) compared to traditional MCMC (dashed blue).](assets/img/blog/hmc-cosmology-figures/fig2_power_spectrum.png)
+{% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig2_power_spectrum.png" title="example image" class="img-fluid rounded z-depth-1" %}
 
 *Figure 2: Power spectra of the two chains. The HMC (red solid line) reaches the white-noise floor at $k \approx 0.1$, while the Metropolis chain (blue dashed line) doesn't flatten until $k \approx 0.02$. The inset shows autocorrelation functions, HMC's dies off dramatically faster.*
 
@@ -217,7 +216,7 @@ $$
 
 The marginal distributions confirm this visually:
 
-![Figure 3: Marginalized distributions and 2D contour plots for HMC (left) and MCMC (right) with the same chain length.](assets/img/blog/hmc-cosmology-figures/fig3_marginalized_6d.png)
+{% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig3_marginalized_6d.png" title="example image" class="img-fluid rounded z-depth-1" %}
 
 *Figure 3: Same chain length, very different results. HMC (left) recovers clean histograms and tight contour plots. The Metropolis sampler (right) produces noisy, ragged contours, it simply hasn't explored enough of the space.*
 
@@ -225,7 +224,7 @@ The marginal distributions confirm this visually:
 
 This is the paper's most powerful result. Repeating the Gaussian test across dimensions 2 through 25:
 
-![Figure 4: Average efficiency (1/E) of HMC vs. number of dimensions.](assets/img/blog/hmc-cosmology-figures/fig4_efficiency_vs_dim.png)
+{% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig4_efficiency_vs_dim.png" title="example image" class="img-fluid rounded z-depth-1" %}
 
 *Figure 4: The inverse efficiency ($1/E$) of HMC stays roughly constant (~3.3) as dimensionality increases. This is remarkable.*
 
@@ -247,7 +246,7 @@ $$
 E = \frac{(x^2 + y^2 - 1)^2}{8\sigma_1^2} + \frac{y^2}{2\sigma_2^2}
 $$
 
-![Figure 5: (Left) 1000 samples drawn from the crescent distribution. (Right) Power spectra for HMC (red) and MCMC (blue).](assets/img/blog/hmc-cosmology-figures/fig5_crescent.png)
+{% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig5_crescent.png" title="example image" class="img-fluid rounded z-depth-1" %}
 
 *Figure 5: HMC handles this curved, non-Gaussian distribution with ease. The 1000 samples (left) faithfully trace the crescent shape. The power spectrum (right) tells the quantitative story: HMC (red) reaches white noise much sooner than MCMC (blue), meaning far less wasted computation.*
 
@@ -288,7 +287,7 @@ The gradient of this simple quadratic function serves as an approximate gradient
 
 A more sophisticated approach uses `Lico` (the likelihood routine from the `Pico` package) to perform a piecewise fourth-order polynomial fit to the log-likelihood across 30 regions of parameter space. This gives much better gradient estimates:
 
-![Figure 6: Gradients computed at 85 random positions using the Gaussian approximation (red dashed) and modified Lico (blue solid).](assets/img/blog/hmc-cosmology-figures/fig6_gradients.png)
+{% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig6_gradients.png" title="example image" class="img-fluid rounded z-depth-1" %}
 
 *Figure 6: The two gradient estimation methods agree closely. The modified Lico captures more detail, but even the simple Gaussian approximation is surprisingly good.*
 
@@ -313,13 +312,13 @@ The autocorrelation lengths tell the story:
 
 The average autocorrelation length drops from **17.1** (Metropolis) to **3.3** (HMC), a factor of ~5 improvement. The power spectra confirm this:
 
-![Figure 7: Power spectra of Markov chains from the 6-parameter flat LCDM model.](assets/img/blog/hmc-cosmology-figures/fig7_power_spectra_lcdm.png)
+{% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig7_power_spectra_lcdm.png" title="example image" class="img-fluid rounded z-depth-1" %}
 
 *Figure 7: Power spectra for HMC (red solid) and Metropolis (blue dashed) on the real LCDM model. The inset shows autocorrelation functions for $\Omega_b h^2$. HMC is almost a factor of 6 more efficient, and nearly an order of magnitude better overall.*
 
 The resulting marginalized distributions from HMC are clean and well-converged:
 
-![Figure 8: Marginalized distributions of the 6-parameter flat LCDM model from HMC.](assets/img/blog/hmc-cosmology-figures/fig8_lcdm_marginalized.png)
+{% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig8_lcdm_marginalized.png" title="example image" class="img-fluid rounded z-depth-1" %}
 
 *Figure 8: Posterior distributions for all six cosmological parameters recovered by HMC. These match the expected results while requiring much shorter chains.*
 
