@@ -1,7 +1,7 @@
 cv:
   name: Amir Hajian, Ph.D.
   label: "AI Research & Product Exec"
-  email: amirhajian.work@gmail.com
+  #email: amirhajian.work@gmail.com
   location: Toronto, ON
   image: ""
   summary: "Executive and scientist with 10+ years building and leading multi-disciplinary teams of researchers, engineers, and data specialists across academia and industry. Deep expertise in multimodal and generative AI, responsible AI (robustness, bias, safety, evaluation), and post-training adaptation of foundation models in enterprise and regulated contexts. Author of 70+ peer-reviewed publications (h-index 47); strong track record translating frontier research into scalable, trustworthy production systems—from wearables to agentic AI in financial services. Experienced in organizational planning, mentorship, and growing senior technical talent."
@@ -209,10 +209,10 @@ cv:
         start_date: 2021
         end_date: 2024
 
-    Certificates: []
+    #Certificates: []
 
-    Volunteer: []
+    #Volunteer: []
 
-    Awards: []
+    #Awards: []
 
-    References: []
+    #References: []
