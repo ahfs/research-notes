@@ -87,7 +87,7 @@ ninja.data = [{
         
           title: "Efficient Parameter Estimation with Hamiltonian Monte Carlo And Its Applications",
         
-        description: "how to use hamiltonian dynamics to do Bayesian inference more efficiently.",
+        description: "How to use Hamiltonian dynamics to do Bayesian inference more efficiently.",
         section: "Posts",
         handler: () => {
           
@@ -96,7 +96,7 @@ ninja.data = [{
         },
       },{id: "post-physics-as-computation",
         
-          title: "physics as computation",
+          title: "Physics as Computation",
         
         description: "How light, heat, chemistry, and noise are replacing transistors as the fundamental substrate of intelligence — a critical survey of six paradigms reshaping the field.",
         section: "Posts",
