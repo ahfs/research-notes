@@ -192,8 +192,9 @@ where $P_0 = P(k=0)$ is the zero-frequency power. $E = 1$ is ideal; $E^{-1}$ tel
 ### Test 1: The 6-Dimensional Gaussian
 
 The first test is clean and simple: sample from a 6-dimensional isotropic Gaussian ($\sigma_0 = 1$) using chains of length $N_{\text{samples}} = 8192$.
-
+````markdown
 ![Figure 1: Samples drawn from an isotropic six-dimensional Gaussian distribution using HMC (top) and the Metropolis algorithm with optimal step-size (bottom).](hmc-cosmology-figures/fig1_chains.png)
+````
 
 *Figure 1: Chain traces from HMC (top) and Metropolis (bottom) sampling a 6D Gaussian. The HMC chain shows rapid, full-amplitude oscillations, it's exploring the distribution efficiently. The Metropolis chain is sluggish by comparison, drifting slowly through parameter space.*
 

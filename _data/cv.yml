@@ -4,7 +4,7 @@ cv:
   email: amirhajian.work@gmail.com
   location: Toronto, ON
   image: ""
-  summary: "Seasoned AI research executive and scientist with 10+ years building and leading multi-disciplinary teams of researchers, engineers, and data specialists across academia and industry. Deep expertise in multimodal and generative AI, responsible AI (robustness, bias, safety, evaluation), and post-training adaptation of foundation models in enterprise and regulated contexts. Author of 70+ peer-reviewed publications (h-index 47); strong track record translating frontier research into scalable, trustworthy production systems—from wearables to agentic AI in financial services. Experienced in organizational planning, mentorship, and growing senior technical talent."
+  summary: "Executive and scientist with 10+ years building and leading multi-disciplinary teams of researchers, engineers, and data specialists across academia and industry. Deep expertise in multimodal and generative AI, responsible AI (robustness, bias, safety, evaluation), and post-training adaptation of foundation models in enterprise and regulated contexts. Author of 70+ peer-reviewed publications (h-index 47); strong track record translating frontier research into scalable, trustworthy production systems—from wearables to agentic AI in financial services. Experienced in organizational planning, mentorship, and growing senior technical talent."
 
 
   social_networks:
@@ -16,7 +16,7 @@ cv:
       username: amir-hajian-744674135
 
   address:
-    street: ""
+    street: 
     city: Toronto
     region: Ontario
     postalCode: ""
