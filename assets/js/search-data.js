@@ -72,7 +72,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/research-notes/blog/";
               },
-            },{id: "post-efficient-parameter-estimation-with-hamiltonian-monte-carlo-and-its-applications",
+            },{id: "post-",
+        
+          title: "",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/research-notes/blog/2026/2026-04-10-graphit/";
+          
+        },
+      },{id: "post-efficient-parameter-estimation-with-hamiltonian-monte-carlo-and-its-applications",
         
           title: "Efficient Parameter Estimation with Hamiltonian Monte Carlo And Its Applications",
         
