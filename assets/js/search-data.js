@@ -72,7 +72,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/research-notes/blog/";
               },
-            },{id: "post-physics-as-computation",
+            },{id: "post-efficient-parameter-estimation-with-hamiltonian-monte-carlo-and-its-applications",
+        
+          title: "Efficient Parameter Estimation with Hamiltonian Monte Carlo And Its Applications",
+        
+        description: "how to use hamiltonian dynamics to do Bayesian inference more efficiently.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/research-notes/blog/2026/hmc-cosmology/";
+          
+        },
+      },{id: "post-physics-as-computation",
         
           title: "physics as computation",
         
