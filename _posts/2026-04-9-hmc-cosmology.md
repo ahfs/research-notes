@@ -2,8 +2,8 @@
 layout: post
 title: Efficient Parameter Estimation with Hamiltonian Monte Carlo And Its Applications
 date: 2026-04-09T 10:30:43-04:00
-description: how to use hamiltonian dynamics to do Bayesian inference more efficiently.
-categories: [bayesian statistics, probabilistic computing]
+description: How to use Hamiltonian dynamics to do Bayesian inference more efficiently.
+categories: [method]
 tags: [parameter estimation, bayesian inference, MCMC, HMC, cosmology]
 giscus_comments: false
 related_posts: false

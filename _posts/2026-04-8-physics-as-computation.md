@@ -1,6 +1,6 @@
 ---
 layout: post
-title: physics as computation
+title: Physics as Computation
 date: 2026-04-08T 10:30:43-04:00
 description: How light, heat, chemistry, and noise are replacing transistors as the fundamental substrate of intelligence — a critical survey of six paradigms reshaping the field.
 categories: [physics, computation]
