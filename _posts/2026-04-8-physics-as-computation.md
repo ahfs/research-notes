@@ -31,8 +31,8 @@ The hardware manifestation is the **Stochastic Processing Unit (SPU)**, pioneere
 
 A competing startup, **Extropic**, is pursuing a more ambitious vision: thermodynamic ASICs as a general-purpose acceleration layer sitting alongside CPUs and GPUs, routing computations to whichever physical substrate best matches the problem's structure.
 
-> *"Classical and quantum computing fight noise. Thermodynamic computing is powered by it."*
-> — Stephen Whitelam, Lawrence Berkeley National Laboratory, 2026
+> *Noise, the very thing we fight against in classical and quantum computing, is the fuel for thermodynamic computing.*
+
 
 Berkeley Lab researchers published a framework in early 2026 for training thermodynamic neural networks — historically done expensively in simulation — and running inference on the physical hardware at drastically reduced energy cost. The current challenge is speed: these devices compute at equilibrium, which requires waiting for the system to settle. New work on non-equilibrium thermodynamic computing and Mpemba-effect-inspired initializations (using a "warm start" to accelerate convergence) is actively addressing this bottleneck.
 
@@ -56,7 +56,7 @@ The human brain performs extraordinary feats of perception and coordination on r
 
 Neuromorphic chips replicate this by implementing **Spiking Neural Networks (SNNs)** in silicon. Unlike the matrix multiplications of standard deep learning, SNNs process information as discrete events ("spikes") in time — consuming energy only when a signal actually occurs. Intel's **Loihi 3**, released in January 2026 on a 4nm process, packs 8 million neurons and 64 billion synapses per chip — an eightfold density increase over its predecessor — and introduces 32-bit "graded spikes" that bridge the gap between SNNs and traditional deep neural networks.
 
-> ⚠ **Editorial Note:** IBM's **NorthPole**, while often grouped with neuromorphic chips, is more precisely a *near-memory inference accelerator*. It eliminates the von Neumann bottleneck by co-locating memory and compute, achieving up to 25× the energy efficiency of an H100 GPU for image recognition — but it does not use spiking neural networks. It is a complementary, not identical, paradigm. The original source text conflated these two distinct architectures.
+> ⚠ **Note:** IBM's **NorthPole**, while often grouped with neuromorphic chips, is more precisely a *near-memory inference accelerator*. It eliminates the von Neumann bottleneck by co-locating memory and compute, achieving up to 25× the energy efficiency of an H100 GPU for image recognition — but it does not use spiking neural networks. It is a complementary, not identical, paradigm. The original source text conflated these two distinct architectures.
 
 Real-world deployments in 2026 include the ANYmal D Neuro quadruped robot, which runs on Loihi 3 for 72 continuous hours on a single charge — a ninefold improvement over GPU-powered predecessors. Mercedes-Benz and BMW are integrating neuromorphic vision for sub-millisecond autonomous braking reaction. Sandia National Laboratories has fielded the world's largest neuromorphic system (175 million neurons) for physics simulations previously requiring full supercomputers.
 
@@ -121,11 +121,9 @@ The central bottleneck of modern AI is matrix multiplication — the mathematica
 
 > **Key Concept:** Photons interact with optical components (beam splitters, phase shifters, modulators) to perform weighted summations — the core of matrix-vector multiplication — with *no resistive heat loss*. Multiple wavelengths (colors) of light can travel through the same waveguide simultaneously without interfering, enabling massive bandwidth in a single physical channel.
 
-> ⚠ **Editorial Note:** A common overclaim: photonic computing is often described as operating "at the speed of light," implying an absolute speed advantage over electronics. This is misleading. Propagation delay is rarely the bottleneck in computing — the real advantages of photonics are **bandwidth density**, **absence of resistive heat**, and **natural parallelism via wavelength multiplexing**. The original source text repeated this common misconception.
+> ⚠ **Note:** A common overclaim: photonic computing is often described as operating "at the speed of light," implying an absolute speed advantage over electronics. This is misleading. Propagation delay is rarely the bottleneck in computing — the real advantages of photonics are **bandwidth density**, **absence of resistive heat**, and **natural parallelism via wavelength multiplexing**. Some photonic computing marketing materials often repeat this common misconception.
 
 **Lightmatter** is the leading player in photonic AI accelerators, building optical interconnects and matrix engines aimed at the next generation of AI training and inference clusters. Their architecture uses silicon photonics — photonic components fabricated using standard semiconductor processes — to make the technology manufacturable at scale.
-
-> ⚠ **Editorial Note:** **Luminous Computing**, cited in the original source text, ceased operations in 2023. It should not be listed as an active player in this space. Lightmatter remains the primary commercial leader in photonic AI compute.
 
 **Key players:** Lightmatter · Ayar Labs · PsiQuantum (hybrid)
 
@@ -172,97 +170,4 @@ The field is young, claims are often premature, and the path from proof-of-conce
 *PHYSICS AS COMPUTATION · RESEARCH SURVEY · APRIL 2026*
 *For research and educational purposes. Based on my findings from the literature and recent sources.*
 *Work in progress. Will post updates as my understanding of the field evolves.*
-
-
-
-
-
-This theme implements a built-in Jekyll feature, the use of Rouge, for syntax highlighting.
-It supports more than 100 languages.
-This example is in C++.
-All you have to do is wrap your code in markdown code tags:
-
-````markdown
-```c++
-code code code
-```
-````
-
-```c++
-int main(int argc, char const \*argv[])
-{
-    string myString;
-
-    cout << "input a string: ";
-    getline(cin, myString);
-    int length = myString.length();
-
-    char charArray = new char * [length];
-
-    charArray = myString;
-    for(int i = 0; i < length; ++i){
-        cout << charArray[i] << " ";
-    }
-
-    return 0;
-}
-```
-
-For displaying code in a list item, you have to be aware of the indentation, as stated in [this FAQ](https://github.com/planetjekyll/quickrefs/blob/master/FAQ.md#q-how-can-i-get-backtick-fenced-code-blocks-eg--working-inside-lists-with-kramdown). You must indent your code by **(3 \* bullet_indent_level)** spaces. This is because kramdown (the markdown engine used by Jekyll) indentation for the code block in lists is determined by the column number of the first non-space character after the list item marker. For example:
-
-````markdown
-1. We can put fenced code blocks inside nested bullets, too.
-   1. Like this:
-
-      ```c
-      printf("Hello, World!");
-      ```
-
-   2. The key is to indent your fenced block in the same line as the first character of the line.
-````
-
-Which displays:
-
-1. We can put fenced code blocks inside nested bullets, too.
-   1. Like this:
-
-      ```c
-      printf("Hello, World!");
-      ```
-
-   2. The key is to indent your fenced block in the same line as the first character of the line.
-
-By default, it does not display line numbers. If you want to display line numbers for every code block, you can set `kramdown.syntax_highlighter_opts.block.line_numbers` to true in your `_config.yml` file.
-
-If you want to display line numbers for a specific code block, all you have to do is wrap your code in a liquid tag:
-
-{% raw %}
-{% highlight c++ linenos %} <br/> code code code <br/> {% endhighlight %}
-{% endraw %}
-
-The keyword `linenos` triggers display of line numbers.
-Produces something like this:
-
-{% highlight c++ linenos %}
-
-int main(int argc, char const \*argv[])
-{
-string myString;
-
-    cout << "input a string: ";
-    getline(cin, myString);
-    int length = myString.length();
-
-    char charArray = new char * [length];
-
-    charArray = myString;
-    for(int i = 0; i < length; ++i){
-        cout << charArray[i] << " ";
-    }
-
-    return 0;
-
-}
-
-{% endhighlight %}
 
