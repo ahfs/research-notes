@@ -72,15 +72,15 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/research-notes/blog/";
               },
-            },{id: "post-",
+            },{id: "post-graphit-teaching-language-models-to-read-graphs",
         
-          title: "",
+          title: "GraphiT, Teaching Language Models to Read Graphs",
         
-        description: "",
+        description: "how to use language models to do node classification on graphs.",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/research-notes/blog/2026/2026-04-10-graphit1/";
+            window.location.href = "/research-notes/blog/2026/graphit1/";
           
         },
       },{id: "post-efficient-parameter-estimation-with-hamiltonian-monte-carlo-and-its-applications",
