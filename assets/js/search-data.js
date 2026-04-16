@@ -72,7 +72,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/research-notes/blog/";
               },
-            },{id: "post-graphit-teaching-language-models-to-read-graphs",
+            },{id: "post-porch-pirates-vs-delivery-drivers-building-a-zero-shot-video-classifier-that-actually-works",
+        
+          title: "Porch Pirates vs. Delivery Drivers, Building a Zero-Shot Video Classifier That Actually Works...",
+        
+        description: "a porch camera that thinks.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/research-notes/blog/2026/argus-part1/";
+          
+        },
+      },{id: "post-graphit-teaching-language-models-to-read-graphs",
         
           title: "GraphiT, Teaching Language Models to Read Graphs",
         
