@@ -1,0 +1,510 @@
+# Porch Pirates vs. Delivery Drivers, Part 2: Making the Classifier Agentic
+
+**How we turned a standalone Python script into an autonomous security system that perceives, reasons, and acts --- using nothing but markdown files and a CLI.**
+
+---
+
+In [Part 1](BLOG.md), we built a zero-shot video classifier that distinguishes package deliveries from package thefts by detecting *state change* --- whether a package appeared or disappeared between early and late frames of a video clip. It worked. SigLIP2 and CLIP both scored 99% confidence on every test video.
+
+But a classifier that prints `DELIVERY` to stdout doesn't protect anyone's packages. A useful security system needs to *do* something: send a push notification, trigger a siren, or decide an event is safe to ignore. It needs to reason about *context* --- is that person a delivery driver or a stranger? Is the homeowner's dog the only thing moving? And it needs to handle failure gracefully --- what happens when the classifier returns low confidence, or the video is corrupt?
+
+This post is about the layer we built on top of the classifier: an autonomous multi-agent pipeline, defined entirely in markdown, that runs inside the [Gemini CLI](https://github.com/anthropics/claude-code). No application server. No orchestration framework. Just agents calling tools, reasoning about their output, and dispatching actions.
+
+---
+
+## Table of Contents
+
+1. [The Gap Between a Classifier and a System](#1-the-gap-between-a-classifier-and-a-system)
+2. [Architecture: Agents, Skills, and Tools](#2-architecture-agents-skills-and-tools)
+3. [The Perception Agent](#3-the-perception-agent)
+4. [The Security Orchestrator](#4-the-security-orchestrator)
+5. [The Tool Layer](#5-the-tool-layer)
+6. [Walking Through a Delivery](#6-walking-through-a-delivery)
+7. [Walking Through a Theft](#7-walking-through-a-theft)
+8. [What the Agent Buys You Over a Script](#8-what-the-agent-buys-you-over-a-script)
+9. [Limitations and Where This Goes Next](#9-limitations-and-where-this-goes-next)
+
+---
+
+## 1. The Gap Between a Classifier and a System
+
+At the end of Part 1, we had this:
+
+```bash
+$ python classify_video.py test_videos/delivery1.mp4
+
+FINAL VERDICT: DELIVERY (99.0% confidence)
+```
+
+That's a function: video in, label out. To turn it into a security system, we need to answer questions the classifier can't:
+
+- **What should I *do* about this?** The classifier says DELIVERY, but the action depends on context. Should I send a notification? To whom? With what message?
+- **What if the classifier is uncertain?** At 55% confidence, do I trigger a siren and risk a false alarm, or ignore it and risk a missed theft?
+- **What if the classifier fails entirely?** Corrupt video, model crash, timeout. The system still needs to produce an outcome.
+- **Can I get richer context?** The classifier knows a package appeared. It doesn't know that the person was wearing an Amazon vest, or that a golden retriever was also in frame, or that the homeowner is expecting a delivery today.
+
+These are *reasoning* problems, not classification problems. And they map perfectly to what LLM agents are good at: interpreting structured evidence, applying rules, handling edge cases, and explaining their decisions.
+
+---
+
+## 2. Architecture: Agents, Skills, and Tools
+
+Project Argus uses Gemini CLI's agent framework: agents and skills defined as markdown files, tools as Python scripts, all orchestrated through natural language delegation.
+
+```
+project-argus/
+  .gemini/
+    agents/
+      argus-perception.md     <-- Perception subagent
+    skills/
+      security-orchestrator/
+        SKILL.md                <-- Decision-making skill
+  tools/
+    classify_event.py           <-- ML classifier wrapper
+    send_notification.py        <-- Push notification action
+    trigger_siren.py            <-- Hardware siren action
+    ignore_event.py             <-- Safe-dismiss action
+  classify_video.py             <-- Core classifier (from Part 1)
+  GEMINI.md                     <-- Project context for agents
+```
+
+The architecture enforces a strict **separation of concerns** through two design principles:
+
+1. **The perception agent must not make security decisions.** It gathers evidence. It reports what it sees. It does not decide whether to sound an alarm.
+2. **The orchestrator must not analyze raw video.** It receives evidence from the perception agent and applies security rules. It never looks at pixels.
+
+This separation exists because evidence-gathering and decision-making have different failure modes, and you want to debug them independently. If the siren fires on a delivery driver, you need to know: did the perception agent misread the video, or did the orchestrator misapply the rules? With separation, you can trace the bug to one side or the other.
+
+The full flow:
+
+```
+User: "Analyze test_videos/delivery1.mp4"
+       |
+       v
+[security-orchestrator]          Skill --- the decision engine
+       |
+       |  "Analyze this video and report what happened."
+       v
+[argus-perception]             Subagent --- the evidence gatherer
+       |
+       |  Step 1: Run the ML classifier
+       v
+ $ python3 tools/classify_event.py --video test_videos/delivery1.mp4
+       |
+       |  [CLASSIFIER] Event: DELIVERY
+       |  [CLASSIFIER] Confidence: 99%
+       |  [CLASSIFIER] Delta: +0.247
+       |
+       |  Step 2: Visual analysis (if multimodal)
+       |  Step 3: Synthesize timeline + key phrase
+       |
+       v
+[argus-perception]             Returns evidence to orchestrator
+       |
+       v
+[security-orchestrator]          Applies security rules to evidence
+       |
+       |  "ML says DELIVERY at 99%. Timeline confirms 'delivered'."
+       |  "Dispatching notification."
+       v
+ $ python3 tools/send_notification.py --title "Delivery" --message "Package arrived"
+       |
+       v
+ [APP] Notification Sent: Delivery - Package arrived
+```
+
+Every step is a tool call the agent makes via the terminal. Every decision is logged in natural language. Every action leaves a trace.
+
+---
+
+## 3. The Perception Agent
+
+The perception agent lives in a single markdown file: `.gemini/agents/argus-perception.md`. Here is the complete definition, annotated:
+
+```yaml
+---
+name: argus-perception
+description: Dedicated subagent for analyzing security footage using
+             ML-based state-change detection and extracting temporal
+             semantic signals.
+---
+```
+
+The frontmatter registers the agent with Gemini CLI. The `name` is how the orchestrator refers to it when delegating. The `description` tells the system when this agent is relevant.
+
+The agent has a single tool available --- the classifier wrapper we built in Part 1:
+
+```
+python3 tools/classify_event.py --video <path_to_video>
+```
+
+And a strict three-step task:
+
+1. **Run the classifier first.** Always. The ML classification is the hard evidence.
+2. **Analyze the video visually.** If the LLM has multimodal access, it can spot things the classifier can't: delivery uniforms, suspicious behavior, the household dog.
+3. **Synthesize a timeline.** Combine ML and visual evidence into a single report.
+
+The output format is constrained to include three things:
+
+- The ML verdict verbatim (so the orchestrator can see the raw numbers)
+- A step-by-step temporal timeline
+- Exactly one **key phrase**: `"delivered"`, `"stolen"`, or `"no package activity"`
+
+That key phrase is the protocol. It's how the perception agent communicates its conclusion to the orchestrator in a way that maps directly to security rules. The orchestrator pattern-matches on these phrases --- it doesn't parse confidence scores or interpret timelines. The perception agent does the interpretation; the orchestrator does the dispatch.
+
+### Why the ML-first constraint matters
+
+We explicitly require the agent to run the classifier *before* doing visual analysis. This prevents a subtle failure mode: the LLM "seeing" a delivery because the video has a person and a box, without noticing that the box was there at the start and gone at the end. The classifier's state-change detection catches temporal direction; the LLM's visual analysis catches everything else. ML first, then context.
+
+### Handling disagreement
+
+The agent is instructed to report disagreements rather than resolve them:
+
+> *If the ML classifier and your visual analysis disagree, report BOTH and flag the disagreement. Let the orchestrator decide.*
+
+This is a deliberate design choice. The perception agent is the evidence layer. It doesn't have the security rules or the household context (expecting a package, pet dog) needed to make the right call. That's the orchestrator's job.
+
+---
+
+## 4. The Security Orchestrator
+
+The orchestrator is defined as a **skill** in `.gemini/skills/security-orchestrator/SKILL.md`. In Gemini CLI's taxonomy, skills are specialized capabilities that the main agent can activate. The orchestrator has the security rules, the household context, and the authority to dispatch actions.
+
+### Household Context
+
+The skill definition begins with domain knowledge that the classifier doesn't have:
+
+```markdown
+# Household Context
+- The homeowner is expecting an Amazon package today.
+- A golden retriever frequently plays in the yard.
+```
+
+This is injected into every invocation. When the perception agent reports "a large animal was detected on the porch," the orchestrator knows to ignore it. When the perception agent reports a delivery, the orchestrator knows this is expected and can craft a specific notification.
+
+In production, this context block would be populated from a household profile --- residents, expected deliveries, known pets, trusted visitors. For now, it's hardcoded.
+
+### The ReAct Loop
+
+The orchestrator follows a strict **Perceive-Decide-Act** loop:
+
+**1. Perceive.** Delegate to `argus-perception`. Never analyze video directly. The orchestrator sees evidence, not pixels.
+
+**2. Decide.** Apply security rules against three confidence levels:
+
+| Scenario | Action |
+|----------|--------|
+| High confidence (>= 80%) + matching key phrase | Act immediately |
+| Low confidence (< 80%) or ML/visual disagreement | Prefer the safer action |
+| Classifier failure | Fall back to visual-only analysis |
+
+The "prefer the safer action" rule is critical for a security system. A false notification ("Package arrived!" when nothing happened) is annoying. A false siren (blaring at the delivery driver) is worse. A missed theft (silence while someone steals a package) is worst. The decision tree is calibrated accordingly:
+
+- **Ambiguous delivery?** Send the notification anyway. Worst case: a redundant alert.
+- **Ambiguous theft?** Send a notification instead of triggering the siren. The homeowner can check the footage and escalate manually.
+- **No evidence at all?** Ignore, but log the reason.
+
+**3. Act.** Execute exactly one tool. The orchestrator has a table of four tools:
+
+| Tool | Command | Purpose |
+|------|---------|---------|
+| Classifier | `python3 tools/classify_event.py --video <path>` | ML-based detection |
+| Notification | `python3 tools/send_notification.py --title "..." --message "..."` | Alert homeowner |
+| Siren | `python3 tools/trigger_siren.py --zone "..." --threat "..."` | Activate hardware |
+| Ignore | `python3 tools/ignore_event.py --reason "..."` | Log and dismiss |
+
+The constraint "execute exactly one action tool per event" prevents a common agent failure: running the siren *and* sending a notification *and* logging an ignore, all for the same event. One event, one action, one audit trail entry.
+
+---
+
+## 5. The Tool Layer
+
+The tools are deliberately simple. Each is a stateless Python script with `argparse` that prints a structured message and exits. Here's the complete implementation of the siren tool:
+
+```python
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("--zone", default="Front Door")
+parser.add_argument("--threat", default="Unknown")
+args = parser.parse_args()
+print(f"\n[HARDWARE] SIREN ACTIVATED in {args.zone} | Threat: {args.threat}")
+```
+
+Seven lines. No state. No database. No API calls. In production, the `print` statement would be replaced with actual hardware control (GPIO, webhook to a smart home hub, etc.), but the *interface* stays the same. The agents don't need to change when you swap a mock siren for a real one.
+
+The classifier wrapper (`tools/classify_event.py`) is slightly more complex --- it imports and runs the full classifier from Part 1 --- but it follows the same pattern: arguments in, structured text out.
+
+```bash
+$ python3 tools/classify_event.py --video test_videos/delivery1.mp4
+
+[CLASSIFIER] Event: DELIVERY
+[CLASSIFIER] Confidence: 99%
+[CLASSIFIER] Delta: +0.247
+[CLASSIFIER] Early Package Presence: 0.714
+[CLASSIFIER] Late Package Presence: 0.961
+[CLASSIFIER] Interpretation: A package APPEARED on the porch during this clip.
+```
+
+The `[CLASSIFIER]` prefix and structured key-value format make the output easy for the LLM agent to parse. It reads the tool output from the terminal, extracts the verdict and confidence, and folds them into its reasoning.
+
+### Why CLI scripts instead of function calls?
+
+Three reasons:
+
+1. **Debuggability.** You can run any tool from the terminal and see exactly what the agent would see. No mocking, no framework, no test harness.
+2. **Agent-agnostic.** The tools work with Gemini CLI today. They'd work with Claude Code, OpenAI Agents, LangChain, or a bash script tomorrow. The interface is `stdin`/`stdout`.
+3. **Deployment boundary.** In production, the tools might run on a different machine (the camera's edge device). A CLI interface maps cleanly to SSH, Docker exec, or a message queue. Python function calls don't.
+
+---
+
+## 6. Walking Through a Delivery
+
+Let's trace a complete delivery event from start to finish.
+
+**Input:** A user (or an upstream motion detector) activates the system:
+
+> *"A person was detected on the porch. Analyze test_videos/delivery2.mp4"*
+
+**Step 1: Orchestrator delegates to perception.**
+
+The `security-orchestrator` skill activates and delegates video analysis to the `argus-perception` subagent, passing the video file path.
+
+**Step 2: Perception agent runs the classifier.**
+
+The subagent executes:
+```
+$ python3 tools/classify_event.py --video test_videos/delivery2.mp4
+```
+
+And receives:
+```
+[CLASSIFIER] Event: DELIVERY
+[CLASSIFIER] Confidence: 99%
+[CLASSIFIER] Delta: +0.243
+[CLASSIFIER] Early Package Presence: 0.732
+[CLASSIFIER] Late Package Presence: 0.976
+[CLASSIFIER] Interpretation: A package APPEARED on the porch during this clip.
+```
+
+**Step 3: Perception agent provides visual context.**
+
+If the model has multimodal access, it adds observations:
+
+> *"A person in a red cap and gray hoodie approaches the porch carrying two cardboard boxes. They carefully place the larger box on the porch, then stack a smaller box on top. They step back, appear to check the placement, and walk away. The porch starts empty and ends with two stacked boxes."*
+
+**Step 4: Perception agent synthesizes the timeline.**
+
+```
+ML Classification: DELIVERY, 99% confidence, delta +0.243
+Timeline:
+  0:00 - Empty porch visible (doormat only)
+  0:03 - Person enters frame carrying two boxes
+  0:05 - Person bends down, places large box on porch
+  0:07 - Person places smaller box on top
+  0:08 - Person steps back
+  0:10 - Person exits frame, two boxes remain
+
+Key Phrase: "delivered"
+```
+
+**Step 5: Orchestrator decides.**
+
+The orchestrator receives the evidence. ML says DELIVERY at 99%. The timeline confirms "delivered." The household context says the homeowner is expecting an Amazon package. This is an easy case.
+
+**Step 6: Orchestrator acts.**
+
+```
+$ python3 tools/send_notification.py --title "Delivery" --message "Package arrived"
+
+[APP] Notification Sent: Delivery - Package arrived
+```
+
+One event. One action. Full trace.
+
+---
+
+## 7. Walking Through a Theft
+
+Now the harder case.
+
+**Input:** *"A person was detected on the porch. Analyze test_videos/theft_synthetic.mp4"*
+
+**Step 2: Classifier returns THEFT.**
+
+```
+[CLASSIFIER] Event: THEFT
+[CLASSIFIER] Confidence: 99%
+[CLASSIFIER] Delta: -0.242
+[CLASSIFIER] Interpretation: A package DISAPPEARED from the porch during this clip.
+```
+
+The negative delta is the key signal. As we established in [Part 1](BLOG.md#4-the-insight-state-change-not-action-recognition), a negative delta means package presence *decreased* over time --- something that was there is now gone.
+
+**Step 3: Perception agent reports.**
+
+```
+ML Classification: THEFT, 99% confidence, delta -0.242
+Timeline:
+  0:00 - Two stacked boxes visible on porch
+  0:03 - Person enters frame, approaches boxes
+  0:05 - Person bends down, lifts smaller box
+  0:07 - Person picks up larger box
+  0:08 - Person turns away from porch carrying both boxes
+  0:10 - Person exits frame, porch is empty
+
+Key Phrase: "taken away"
+```
+
+**Step 5: Orchestrator decides.**
+
+ML says THEFT at 99%. Timeline confirms "taken away." The person is not recognized as the homeowner or a delivery driver. This is a high-confidence threat.
+
+**Step 6: Orchestrator acts.**
+
+```
+$ python3 tools/trigger_siren.py --zone "Porch" --threat "Theft"
+
+[HARDWARE] SIREN ACTIVATED in Porch | Threat: Theft
+```
+
+Immediate response. The decision from "person detected on porch" to "siren activated" runs through two agents, one ML classifier, and three tool calls --- but the logic is traceable at every step.
+
+## Can a pure LLM run this? 
+To make sure we are not being fooled by the multimodal capabilities of Gemini 3 Pro, I tried to run the same test with a pure LLM.
+
+Using `MiniMax M2.5` as the LLM, and `opencode` and the CLI allowed me to run the system with text-only models that have no video or image understanding capabilities. And **it worked**!
+
+Here is the screenshot for the final report on what happens once you process a delivery video:
+
+![alt text](argus_blog_assets/Delivery_Agent.png)
+
+And here is the screenshot for the final report on what happens once you process a theft video:
+
+![alt text](argus_blog_assets/Theft_Agent.png)
+
+---
+
+## 8. What the Agent Buys You Over a Script
+
+You could write this as a Python script. A 30-line `if/elif/else` chain that calls the classifier and dispatches the appropriate tool. It would work for the three cases we've tested.
+
+The agent layer isn't about making the happy path work. It's about handling everything else.
+
+### Graceful degradation
+
+When the classifier encounters a corrupt video (as we found with the original `theft.mp4` --- see [Part 1](BLOG.md#6-test-results)), a script crashes. The agent has a fallback path: it tries the classifier, notices the failure, and falls back to visual-only analysis. If that also fails, it dispatches `ignore_event.py` with reason `"Insufficient evidence"` --- a safe default.
+
+### Natural language audit trail
+
+Every decision the orchestrator makes is explained in natural language. When the homeowner checks why the siren went off at 3am, they get a reasoning trace, not an exit code.
+
+### Separation enables iteration
+
+Want to add a new security rule? Edit the orchestrator's `SKILL.md`. Want the perception agent to detect vehicles? Edit `argus-perception.md`. Want to swap the ML classifier for a VLM? Replace `classify_event.py`. Each component has a single file you can modify without touching the others.
+
+### Context awareness
+
+The orchestrator knows the homeowner's dog is a golden retriever. A Python script could hard-code that, but the agent can *reason* about it: "The perception agent reported a large animal on the porch, but the household context says a golden retriever frequents the yard. This is likely the pet. Ignoring."
+
+### Composability
+
+The tools are plain CLI scripts. The agents are markdown files. The wiring is natural language delegation. If you want to add a new tool (a camera snapshot, a door lock, a light switch), you write a 5-line Python script and add a row to the orchestrator's tool table. No framework code, no adapter classes, no redeployment.
+
+---
+
+## 9. Limitations and Where This Goes Next
+
+### What's still fragile
+
+**Agent latency.** The ReAct loop adds overhead. The perception agent makes a tool call (classifier: ~7s), reads the output, synthesizes a timeline, and returns it to the orchestrator, which makes another tool call (action: instant). In production, the 7-second classifier latency dominates. But for a theft-in-progress, seconds matter. The classifier needs to be faster, or the siren needs a parallel fast-path.
+
+**LLM dependency for the reasoning layer.** The orchestrator is an LLM interpreting structured output and applying rules. For the straightforward cases (high-confidence DELIVERY or THEFT), a rule engine would be faster and more deterministic. The LLM reasoning layer is most valuable for edge cases --- but edge cases are also where LLMs are most likely to hallucinate. Monitoring and guardrails are essential.
+
+**Single-event processing.** The system processes one clip at a time. It has no memory of previous events. If a delivery happened 10 minutes ago and now someone is approaching the porch, the system doesn't know there's a package to protect. Adding event history would require persistent state --- either a database the tools can read, or a longer-lived agent context.
+
+**Household context is static.** The "expecting an Amazon package" and "golden retriever" facts are hard-coded in the skill definition. A production system would pull this from a household profile, delivery tracking APIs, and a pet registry. The agent architecture supports this (just add more tools for context lookup), but we haven't built it yet.
+
+### The production path
+
+The architecture from [Part 1's hybrid proposal](BLOG.md#the-hybrid-architecture) maps directly onto what we've built:
+
+```
+[Stage 1: YOLO on edge]        Runs on every frame, ~3ms
+       |
+       v
+[Stage 2: classify_event.py]   Runs on clips, ~7s, LOCAL
+       |
+       v
+[Stage 3: Gemini agent]        Runs on ML output, ~2s reasoning
+       |
+       v
+[Action tool]                   Notification / Siren / Ignore
+```
+
+Stage 1 (motion detection) feeds clips to Stage 2 (our classifier). Stage 3 (the agent pipeline) wraps the classifier with reasoning, context, fallback logic, and action dispatch. The classifier is the fast, local, deterministic backbone. The agent is the slow, flexible, context-aware brain.
+
+The key insight from building this: **the agent doesn't replace the classifier --- it amplifies it.** The classifier provides the hard evidence (delta: +0.243, confidence: 99%). The agent provides the judgment (homeowner expects a delivery, the dog is a golden retriever, dispatch a notification). Neither is sufficient alone. Together, they cover a surprising amount of ground.
+
+### What a VLM-native version would look like
+
+As VLMs improve, the architecture could simplify. Instead of SigLIP2 + CLIP running a state-change heuristic, a single multimodal model could do perception and reasoning in one pass:
+
+```
+$ gemini "Watch test_videos/delivery1.mp4 and classify the event."
+
+"I see a person in a magenta shirt approaching a blue house. They are
+carrying an Amazon box and a yellow envelope. They bend down and place
+both items on the porch near the front door, scan them with a phone
+(likely confirming delivery), and walk away. The porch starts empty
+and ends with two packages.
+
+Classification: DELIVERY
+Confidence: HIGH
+Reasoning: Person arrived with packages, placed them on the porch,
+and left. Matches delivery behavior. No indicators of theft."
+```
+
+The state-change classifier would become a fallback for when the VLM is unavailable or too slow, rather than the primary signal. The agent orchestration layer --- the security rules, the household context, the action dispatch --- stays the same. That's the point of the separation: the *reasoning* architecture is independent of the *perception* implementation.
+
+---
+
+## The Full System at a Glance
+
+```
+project-argus/
+  .gemini/
+    agents/
+      argus-perception.md       Runs classifier + visual analysis
+    skills/
+      security-orchestrator/
+        SKILL.md                  ReAct loop: Perceive -> Decide -> Act
+  tools/
+    classify_event.py             ML tool: state-change detection
+    send_notification.py          Action: push notification
+    trigger_siren.py              Action: hardware siren
+    ignore_event.py               Action: safe dismiss
+  classify_video.py               Core: SigLIP2 + CLIP classifier
+  GEMINI.md                       Agent context and documentation
+```
+
+Four markdown files define the entire agent architecture. Four Python scripts handle every tool call. One classifier does the heavy ML lifting. No framework, no server, no build step.
+
+The system we started with in Part 1 could tell you `DELIVERY` or `THEFT`. The system we have now can reason about what that means, decide what to do, explain why, handle failure, and take action --- all from a `gemini` command in the terminal.
+
+```bash
+$ gemini "A person was detected on the porch. Analyze test_videos/delivery1.mp4"
+
+[CLASSIFIER] Event: DELIVERY, Confidence: 99%, Delta: +0.247
+
+[security-orchestrator] ML classification and visual timeline both
+confirm a package delivery. The homeowner is expecting an Amazon
+package. Dispatching notification.
+
+[APP] Notification Sent: Delivery - Package arrived
+```
+
+That's Project Argus: a porch camera that thinks.
+
+---
+
+*This is Part 2 of the Porch Pirates series. [Part 1](BLOG.md) covers the zero-shot video classifier, the state-change insight, and the full test results. All code is in this repository. Agent definitions are in [`.gemini/`](.gemini/), tools are in [`tools/`](tools/), and the classifier is [`classify_video.py`](classify_video.py).*
