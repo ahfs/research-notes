@@ -72,7 +72,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/research-notes/blog/";
               },
-            },{id: "post-porch-pirates-vs-delivery-drivers-building-a-zero-shot-video-classifier-that-actually-works",
+            },{id: "post-porch-pirates-vs-delivery-drivers-part-2-making-the-system-agentic",
+        
+          title: "Porch Pirates vs. Delivery Drivers, Part 2 - Making the System Agentic",
+        
+        description: "an autonomous security system that perceives, reasons, and acts.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/research-notes/blog/2026/argus-part2/";
+          
+        },
+      },{id: "post-porch-pirates-vs-delivery-drivers-building-a-zero-shot-video-classifier-that-actually-works",
         
           title: "Porch Pirates vs. Delivery Drivers, Building a Zero-Shot Video Classifier That Actually Works...",
         
