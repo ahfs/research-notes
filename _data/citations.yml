@@ -1,8 +1,8 @@
 metadata:
-  last_updated: '2026-07-03'
+  last_updated: '2026-07-15'
 papers:
   CobR4yQAAAAJ:-f6ydRqryjwC:
-    citations: 48
+    citations: 50
     title: Power-law template for infrared point-source clustering
     year: '2012'
   CobR4yQAAAAJ:1sJd4Hv_s6UC:
@@ -18,7 +18,7 @@ papers:
     title: Measuring the Thermal Sunyaev-Zel'dovich Effect Through the Cross Correlation of Planck and WMAP with ROSAT
     year: '2014'
   CobR4yQAAAAJ:2osOgNQ5qMEC:
-    citations: 192
+    citations: 193
     title: "The Atacama Cosmology Telescope: A measurement of the 600< \u2113< 8000 cosmic microwave background power spectrum at 148 GHz"
     year: '2010'
   CobR4yQAAAAJ:35N4QoGY0k4C:
@@ -38,7 +38,7 @@ papers:
     title: Statistical isotropy of CMB anisotropy from WMAP
     year: '2005'
   CobR4yQAAAAJ:4JMBOYKVnBMC:
-    citations: 81
+    citations: 79
     title: "THE ATACAMA COSMOLOGY TELESCOPE: RELATION BETWEEN GALAXY CLUSTER OPTICAL RICHNESS AND SUNYAEV\u2013ZEL'DOVICH EFFECT"
     year: '2013'
   CobR4yQAAAAJ:4OULZ7Gr8RgC:
@@ -50,11 +50,11 @@ papers:
     title: 'The Herschel-SPIRE Legacy Survey (HSLS): the scientific goals of a shallow and wide submillimeter imaging survey with SPIRE'
     year: '2010'
   CobR4yQAAAAJ:5ugPr518TE4C:
-    citations: 416
+    citations: 409
     title: "THE ATACAMA COSMOLOGY TELESCOPE: SUNYAEV\u2013ZEL'DOVICH-SELECTED GALAXY CLUSTERS AT 148 GHz IN THE 2008 SURVEY"
     year: '2011'
   CobR4yQAAAAJ:70eg2SAEIzsC:
-    citations: 112
+    citations: 113
     title: First measurement of the cross-correlation of CMB lensing and galaxy lensing
     year: '2015'
   CobR4yQAAAAJ:7PzlFSSx8tAC:
@@ -70,11 +70,11 @@ papers:
     title: 'Cosmic Topology: Studying The Shape And Size Of Our Universe'
     year: '2010'
   CobR4yQAAAAJ:9yKSN-GCB0IC:
-    citations: 100
+    citations: 99
     title: 'Testing global isotropy of three-year Wilkinson Microwave Anisotropy Probe (WMAP) data: Temperature analysis'
     year: '2006'
   CobR4yQAAAAJ:BqipwSGYUEgC:
-    citations: 120
+    citations: 119
     title: Cosmological parameters from pre-planck cosmic microwave background measurements
     year: '2013'
   CobR4yQAAAAJ:CHSYGLWDkRkC:
@@ -86,23 +86,23 @@ papers:
     title: A high-significance measurement of correlation between unresolved IRAS sources and optically-selected galaxy clusters
     year: '2013'
   CobR4yQAAAAJ:HoB7MX3m0LUC:
-    citations: 137
+    citations: 136
     title: Precision epoch of reionization studies with next-generation CMB experiments
     year: '2014'
   CobR4yQAAAAJ:IWHjjKOFINEC:
-    citations: 48
+    citations: 49
     title: "Correlations in the (Sub) millimeter Background from ACT\xD7 BLAST"
     year: '2012'
   CobR4yQAAAAJ:IjCSPb-OGe4C:
-    citations: 178
+    citations: 176
     title: "The Atacama Cosmology Telescope: physical properties and purity of a galaxy cluster sample selected via the Sunyaev\u2013Zel'dovich effect"
     year: '2010'
   CobR4yQAAAAJ:JV2RwH3_ST0C:
-    citations: 511
+    citations: 513
     title: 'The Atacama Cosmology Telescope: Cosmological parameters from three seasons of data'
     year: '2013'
   CobR4yQAAAAJ:J_g5lzvAfSwC:
-    citations: 99
+    citations: 97
     title: 'The Atacama Cosmology Telescope: dusty star-forming galaxies and active galactic nuclei in the Southern survey'
     year: '2014'
   CobR4yQAAAAJ:KlAtU1dfN6UC:
@@ -114,7 +114,7 @@ papers:
     title: Cosmology with CMB anisotropy
     year: '2006'
   CobR4yQAAAAJ:LkGwnXOMwfcC:
-    citations: 313
+    citations: 314
     title: 'ACTPol: a polarization-sensitive receiver for the Atacama Cosmology Telescope'
     year: '2010'
   CobR4yQAAAAJ:M3NEmzRMIkIC:
@@ -130,11 +130,11 @@ papers:
     title: 'The Atacama Cosmology Telescope: A Measurement of the 600 less than l less than 8000 Cosmic Microwave Background Power Spectrum at 148 GHz'
     year: '2010'
   CobR4yQAAAAJ:NMxIlDl6LWMC:
-    citations: 250
+    citations: 252
     title: 'The Atacama Cosmology Telescope: likelihood for small-scale CMB data'
     year: '2013'
   CobR4yQAAAAJ:O3NaXMp0MMsC:
-    citations: 78
+    citations: 77
     title: 'The Atacama Cosmology Telescope: beam measurements and the microwave brightness temperatures of Uranus and Saturn'
     year: '2013'
   CobR4yQAAAAJ:P5F9QuxV20EC:
@@ -154,15 +154,15 @@ papers:
     title: 'THE ATACAMA COSMOLOGY TELESCOPE: CALIBRATION WITH THE WILKINSON MICROWAVE ANISOTROPY PROBE USING CROSS-CORRELATIONS'
     year: '2011'
   CobR4yQAAAAJ:R3hNpaxXUhUC:
-    citations: 280
+    citations: 281
     title: "THE ATACAMA COSMOLOGY TELESCOPE: ACT-CL J0102\u2212 4915 \u201CEL GORDO,\u201D A MASSIVE MERGING CLUSTER AT REDSHIFT 0.87"
     year: '2012'
   CobR4yQAAAAJ:Se3iqnhoufwC:
-    citations: 441
+    citations: 442
     title: Detection of the Power Spectrum of Cosmic Microwave Background Lensing<? format?> by the Atacama Cosmology Telescope
     year: '2011'
   CobR4yQAAAAJ:SeFeTyx0c_EC:
-    citations: 35
+    citations: 36
     title: Co-evolution of black hole growth and star formation from a cross-correlation analysis between quasars and the cosmic infrared background
     year: '2015'
   CobR4yQAAAAJ:TFP_iSt0sucC:
@@ -182,7 +182,7 @@ papers:
     title: CORRELATIONS IN THE (SUB) MILLIMETER BACKGROUND FROM ACT Multiplication-Sign BLAST
     year: '2011'
   CobR4yQAAAAJ:UeHWp8X0CEIC:
-    citations: 250
+    citations: 252
     title: 'The Atacama Cosmology Telescope: a measurement of the cosmic microwave background power spectrum at 148 and 218 GHz from the 2008 southern survey'
     year: '2011'
   CobR4yQAAAAJ:UebtZRa9Y70C:
@@ -198,7 +198,7 @@ papers:
     title: Measuring statistical isotropy of CMB anisotropy
     year: '2006'
   CobR4yQAAAAJ:WF5omc3nYNoC:
-    citations: 236
+    citations: 230
     title: "THE ATACAMA COSMOLOGY TELESCOPE: COSMOLOGY FROM GALAXY CLUSTERS DETECTED VIA THE SUNYAEV\u2013ZEL'DOVICH EFFECT"
     year: '2011'
   CobR4yQAAAAJ:WqliGbK-hY8C:
@@ -214,7 +214,7 @@ papers:
     title: Evidence of galaxy cluster motions with the kinematicsunyaev-zeldovich effect
     year: '2012'
   CobR4yQAAAAJ:YFjsv_pBGBYC:
-    citations: 684
+    citations: 675
     title: 'The Atacama Cosmology Telescope: Sunyaev-Zel''dovich selected galaxy clusters at 148 GHz from three seasons of data'
     year: '2013'
   CobR4yQAAAAJ:YOwf2qJgpHMC:
@@ -222,7 +222,7 @@ papers:
     title: Are there echoes from the pre-big-bang universe? A search for low-variance circles in the cosmic microwave background sky
     year: '2011'
   CobR4yQAAAAJ:YsMSGLbcyi4C:
-    citations: 155
+    citations: 154
     title: 'The Atacama Cosmology Telescope (ACT): beam profiles and first SZ cluster maps'
     year: '2010'
   CobR4yQAAAAJ:ZHo1McVdvXMC:
@@ -242,11 +242,11 @@ papers:
     title: 'The atacama cosmology telescope: sunyaev-zeldovich-selected galaxy clusters at 148 ghz in the 2008 survey'
     year: '2011'
   CobR4yQAAAAJ:_FxGoFyzp5QC:
-    citations: 575
+    citations: 573
     title: 'The atacama cosmology telescope: cosmological parameters from the 2008 power spectrum'
     year: '2011'
   CobR4yQAAAAJ:_Qo2XoVZTnwC:
-    citations: 66
+    citations: 67
     title: "Atacama Cosmology Telescope: A measurement of the thermal Sunyaev-Zel\u2019dovich effect<? format?> using the skewness of the CMB temperature distribution"
     year: '2012'
   CobR4yQAAAAJ:_kc_bZDykSQC:
@@ -258,7 +258,7 @@ papers:
     title: 'The Atacama Cosmology Telescope: Evidence for Dark Energy from the CMB Alone'
     year: '2011'
   CobR4yQAAAAJ:blknAaTinKkC:
-    citations: 398
+    citations: 399
     title: 'The Atacama Cosmology Telescope: temperature and gravitational lensing power spectrum measurements from three seasons of data'
     year: '2014'
   CobR4yQAAAAJ:cFHS6HbyZ2cC:
@@ -282,7 +282,7 @@ papers:
     title: 'The Atacama Cosmology Telescope: Power Spectrum Methods'
     year: '2010'
   CobR4yQAAAAJ:eQOLeE2rZwMC:
-    citations: 95
+    citations: 96
     title: Efficient cosmological parameter estimation with Hamiltonian Monte Carlo technique
     year: '2007'
   CobR4yQAAAAJ:fPk4N6BV_jEC:
@@ -302,31 +302,31 @@ papers:
     title: 'The Atacama Cosmology Telescope: Detection or Sunyaev-Zel''Dovich Decrement in Groups and Clusters Associated with Luminous Red Galaxies'
     year: '2010'
   CobR4yQAAAAJ:iH-uZ7U-co4C:
-    citations: 170
+    citations: 171
     title: 'The Atacama Cosmology Telescope: Cross-correlation of cosmic microwave<? format?> background lensing and quasars'
     year: '2012'
   CobR4yQAAAAJ:isC4tDSrTZIC:
-    citations: 149
+    citations: 151
     title: 'The atacama cosmology telescope: Data characterization and mapmaking'
     year: '2013'
   CobR4yQAAAAJ:kNdYIx-mwKoC:
-    citations: 155
+    citations: 154
     title: 'The Atacama Cosmology Telescope: a measurement of the primordial power spectrum'
     year: '2012'
   CobR4yQAAAAJ:k_IJM867U9cC:
-    citations: 30
+    citations: 29
     title: Subaru weak lensing measurement of a z = 0.81 cluster discovered by the Atacama Cosmology Telescope Survey
     year: '2013'
   CobR4yQAAAAJ:lSLTfruPkqcC:
-    citations: 196
+    citations: 195
     title: 'THE HERSCHEL STRIPE 82 SURVEY (HerS): MAPS AND EARLY CATALOG'
     year: '2014'
   CobR4yQAAAAJ:mB3voiENLucC:
-    citations: 175
+    citations: 172
     title: "THE ATACAMA COSMOLOGY TELESCOPE: DYNAMICAL MASSES AND SCALING RELATIONS FOR A SAMPLE OF MASSIVE SUNYAEV\u2013ZEL'DOVICH EFFECT SELECTED GALAXY CLUSTERS"
     year: '2013'
   CobR4yQAAAAJ:mVmsd5A6BfQC:
-    citations: 33
+    citations: 32
     title: "THE ATACAMA COSMOLOGY TELESCOPE: HIGH-RESOLUTION SUNYAEV\u2013ZEL'DOVICH ARRAY OBSERVATIONS OF ACT SZE-SELECTED CLUSTERS FROM THE EQUATORIAL STRIP"
     year: '2012'
   CobR4yQAAAAJ:ns9cj8rnVeAC:
@@ -334,7 +334,7 @@ papers:
     title: "An optimal and model-independent measurement of the intracluster pressure profile\u2013I. Methodology and first applications"
     year: '2013'
   CobR4yQAAAAJ:pqnbT2bcN3wC:
-    citations: 263
+    citations: 262
     title: "The Atacama cosmology telescope: CMB polarization at 200< \u2113< 9000"
     year: '2014'
   CobR4yQAAAAJ:pyW8ca7W8N0C:
@@ -366,11 +366,11 @@ papers:
     title: 'Statistical Isotropy of the Wilkinson Microwave Anisotropy Probe Data: A Bipolar Power Spectrum Analysis'
     year: '2005'
   CobR4yQAAAAJ:u5HHmVD_uO8C:
-    citations: 280
+    citations: 279
     title: Measuring the statistical isotropy of the cosmic microwave background anisotropy
     year: '2003'
   CobR4yQAAAAJ:u_35RYKgDlwC:
-    citations: 21
+    citations: 20
     title: SALT spectroscopic observations of galaxy clusters detected by ACT and a type II quasar hosted by a brightest cluster galaxy
     year: '2015'
   CobR4yQAAAAJ:ufrVoPGSRksC:
@@ -378,7 +378,7 @@ papers:
     title: Statistical isotropy of the cosmic microwave background
     year: '2004'
   CobR4yQAAAAJ:vV6vV6tmYwMC:
-    citations: 48
+    citations: 47
     title: Measuring the thermal Sunyaev-Zel'dovich effect through the cross correlation of Planck and WMAP maps with ROSAT galaxy cluster catalogs
     year: '2013'
   CobR4yQAAAAJ:xtRiw3GOFMkC:
@@ -386,7 +386,7 @@ papers:
     title: Statistical isotropy of CMB anisotropy from WMAP
     year: '2005'
   CobR4yQAAAAJ:yD5IFk8b50cC:
-    citations: 129
+    citations: 128
     title: Evidence of lensing of the cosmic microwave background by dark matter halos
     year: '2015'
   CobR4yQAAAAJ:ye4kPcJQO24C:
