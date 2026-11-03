@@ -18,18 +18,22 @@
     ├── measure_complexity.py
     └── ...
 </code></pre></div></div> <p>When Claude reads <code class="language-plaintext highlighter-rouge">CLAUDE.md</code>, that file describes everything: what Sentinel is, what tools are available and how to run them, and the four-phase workflow to follow when asked to review a file.</p> <p>The workflow isn’t pseudocode or a configuration object — it’s written in plain English:</p> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gu">## Phase 1 — Gather Data</span>
+
 Run ALL seven scan tools against the target file, in parallel where possible.
 Each tool prints JSON to stdout. Collect all results before proceeding.
 
 <span class="gu">## Phase 2 — Triage</span>
+
 If ANY security tool returns critical findings:
-  → Read <span class="sb">`skills/security-review.md`</span>
-  → Invoke <span class="sb">`agents/security-agent/`</span> for deep analysis
+→ Read <span class="sb">`skills/security-review.md`</span>
+→ Invoke <span class="sb">`agents/security-agent/`</span> for deep analysis
 
 <span class="gu">## Phase 3 — Synthesize</span>
+
 Read <span class="sb">`skills/report-synthesis.md`</span> and produce the structured report.
 
 <span class="gu">## Phase 4 — Save</span>
+
 Write the report to <span class="sb">`reports/&lt;filename&gt;-review-&lt;timestamp&gt;.md`</span>.
 </code></pre></div></div> <p>Claude reads this, decides what to do, and runs <code class="language-plaintext highlighter-rouge">python tools/scan_secrets.py --filepath ...</code> via its Bash tool. Each scan script prints JSON and exits with a meaningful code: <code class="language-plaintext highlighter-rouge">0</code> for clean, <code class="language-plaintext highlighter-rouge">1</code> for findings, <code class="language-plaintext highlighter-rouge">2</code> for errors. That convention means the same tool scripts plug into CI/CD without going through an LLM at all — a property both paradigms share.</p> <h3 id="skills-behavior-modules-loaded-on-demand">Skills: behavior modules loaded on demand</h3> <p>The skill abstraction is the most powerful thing the CLI paradigm adds, and it’s the most underappreciated.</p> <p>Skills are markdown files that encode <em>how to present findings</em>, not just what to find. The <code class="language-plaintext highlighter-rouge">security-review.md</code> skill contains severity definitions, the rubric for escalating from WARN to BLOCK, before/after code-fix formats, and specific guidance like “for pickle findings, don’t say ‘sanitize the input’ — the fix is never to sanitize pickle, it’s to use a safe serialization format.” The <code class="language-plaintext highlighter-rouge">report-synthesis.md</code> skill contains synthesis principles, patterns for connecting related issues, and the verdict rules.</p> <p>Skills are loaded <em>on demand</em>, not all at once. The security skill is only read if critical security findings are present. The synthesis skill is only loaded in Phase 3. This keeps the root context small — the LLM’s context window is managed deliberately, not loaded wholesale at startup.</p> <p>The practical consequence is significant: changing how Sentinel presents SQL injection findings is a one-line edit to a markdown file. No Python PR. No redeploy. No restart. You edit the skill, re-run the review, and the behavior changes immediately.</p> <h3 id="subagents-isolated-specialist-processes">Subagents: isolated specialist processes</h3> <p>Each subagent is a directory with its own <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> — a fresh set of instructions for a specialist persona:</p> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Security Review Agent — Deep Analysis Mode</span>
 
@@ -37,7 +41,8 @@ You are a specialist security reviewer. You have been invoked because the
 initial scan found CRITICAL security vulnerabilities. Your job is a deep audit.
 
 For each critical finding:
-<span class="p">1.</span> Explain the specific attack vector — not just "SQL injection" but "an attacker
+<span class="p">
+1.</span> Explain the specific attack vector — not just "SQL injection" but "an attacker
    can enumerate all users by injecting <span class="sb">`' OR 1=1 --`</span> into the username field"
 <span class="p">2.</span> Provide a concrete fix with before/after code
 <span class="p">3.</span> Rate the exploitability: trivial / moderate / requires access
@@ -65,11 +70,7 @@ Follow the four phases defined in GEMINI.md exactly:
        <span class="nt">--include-directories</span> agents/security-agent
 </code></pre></div></div> <p>Gemini’s context loader picks up <code class="language-plaintext highlighter-rouge">agents/security-agent/GEMINI.md</code> as additional instructions, giving the fresh process its specialist persona. Isolation is enforced by the OS process boundary — not just by instruction — which is cleaner in some ways. Each subagent gets a genuinely empty context window.</p> <h3 id="settings-and-allowlisting">Settings and allowlisting</h3> <p>Like Claude Code’s permissions configuration, Gemini CLI lets you allowlist commands so the agent can run tools unattended:</p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"shell"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"allowedCommands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="s2">"python tools/*"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"python test_sentinel.py"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"gemini -p *"</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+    </span><span class="nl">"allowedCommands"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"python tools/*"</span><span class="p">,</span><span class="w"> </span><span class="s2">"python test_sentinel.py"</span><span class="p">,</span><span class="w"> </span><span class="s2">"gemini -p *"</span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div> <p>For a CI-integrated review workflow, this is essential — you don’t want a permission prompt interrupting every tool call.</p> <hr> <h2 id="part-2c-opencode--running-the-same-workflow-for-free">Part 2c: opencode — Running the Same Workflow for Free</h2> <p>After building three implementations, a natural question follows: does the CLI-agent approach depend on staying inside a vendor’s own tool?</p> <p>We ran <code class="language-plaintext highlighter-rouge">sentinel-cli</code> through <a href="https://opencode.ai" rel="external nofollow noopener" target="_blank">opencode</a> — an open-source terminal agent — pointed at MiniMax-Text-01, to find out. We made zero changes to the project structure. The only thing that changed was the process reading the instructions.</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>sentinel-cli

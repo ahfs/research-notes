@@ -153,15 +153,15 @@ ninja.data = [{
         
           title: "Physics as Computation",
         
-        description: "How light, heat, chemistry, and noise are replacing transistors as the fundamental substrate of intelligence — a critical survey of six paradigms reshaping the field.",
+        description: "How light, heat, chemistry, and noise are replacing transistors as the fundamental substrate of intelligence, a critical survey of six paradigms reshaping the field.",
         section: "Posts",
         handler: () => {
           
             window.location.href = "/research-notes/blog/2026/physics-as-computation/";
           
         },
-      },{id: "news-something-big-is-coming-stay-tuned",
-          title: 'Something big is coming, stay tuned …',
+      },{id: "news-stay-tuned",
+          title: 'Stay tuned …',
           description: "",
           section: "News",},{id: "projects-project-1",
           title: 'project 1',
