@@ -10,7 +10,7 @@ related_posts: false
 related_publications: false
 ---
 
-> What if the best way to explore the universe's parameters was to stop wandering randomly --- and start rolling downhill?*
+> What if the best way to explore the universe's parameters was to stop wandering randomly and start rolling downhill?*
 
 **Based on the Paper:** Amir Hajian, "Efficient Cosmological Parameter Estimation with Hamiltonian Monte Carlo,"
 [Phys. Rev. D **75**, 083525 (2007)](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.75.083525) | [arXiv:astro-ph/0608679](https://arxiv.org/abs/astro-ph/0608679)
@@ -26,7 +26,7 @@ The workhorse tool for this job has been **Markov Chain Monte Carlo (MCMC)**, al
 
 But there's a catch. Traditional MCMC methods are **random walkers**. They stumble around parameter space taking small, tentative steps. In high dimensions, this random walk becomes painfully slow: acceptance rates plummet, consecutive samples are highly correlated, and chains need to run for a very long time before they yield reliable estimates. With upcoming experiments like ACT and Planck probing ever smaller angular scales, the computational cost was set to explode.
 
-This paper takes a different approach: **Hamiltonian Monte Carlo (HMC)** --- a method that replaces the aimless random walk with the elegant, directed motion of Hamiltonian dynamics. The payoff is striking: for a standard 6-parameter cosmological model, HMC is nearly **an order of magnitude** more efficient than the Metropolis algorithm.
+This paper takes a different approach: **Hamiltonian Monte Carlo (HMC)**, a method that replaces the aimless random walk with the elegant, directed motion of Hamiltonian dynamics. The payoff is striking: for a standard 6-parameter cosmological model, HMC is nearly **an order of magnitude** more efficient than the Metropolis algorithm.
 
 ---
 
