@@ -7,4 +7,3 @@
 ---
 
 <a href="https://ahfs.github.io/research-notes/" target="_blank">View it here.</a>
-

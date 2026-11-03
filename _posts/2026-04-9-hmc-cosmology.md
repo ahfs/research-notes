@@ -14,13 +14,13 @@ related_publications: false
 
 **Based on the Paper:** Amir Hajian, "Efficient Cosmological Parameter Estimation with Hamiltonian Monte Carlo,"
 [Phys. Rev. D **75**, 083525 (2007)](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.75.083525) | [arXiv:astro-ph/0608679](https://arxiv.org/abs/astro-ph/0608679)
-*Department of Physics & Department of Astrophysical Sciences, Princeton University.*
+_Department of Physics & Department of Astrophysical Sciences, Princeton University._
 
 ---
 
 ## A Motivating Problem: Measuring the Universe Is Computationally Expensive
 
-Studying Cosmic Microwave Background (CMB) ushered cosmology into the era of precision science. For the first time, we had exquisitely detailed maps of the afterglow of the Big Bang, and the challenge shifted from *collecting* data to *interpreting* it. Cosmological models describe the universe with a handful of parameters: how much dark matter there is, how fast the universe is expanding, how lumpy the primordial density field was, and so on. Fitting these models to WMAP data means navigating a complex, high-dimensional probability landscape.
+Studying Cosmic Microwave Background (CMB) ushered cosmology into the era of precision science. For the first time, we had exquisitely detailed maps of the afterglow of the Big Bang, and the challenge shifted from _collecting_ data to _interpreting_ it. Cosmological models describe the universe with a handful of parameters: how much dark matter there is, how fast the universe is expanding, how lumpy the primordial density field was, and so on. Fitting these models to WMAP data means navigating a complex, high-dimensional probability landscape.
 
 The workhorse tool for this job has been **Markov Chain Monte Carlo (MCMC)**, algorithms that wander through parameter space, drawing samples from the posterior distribution of cosmological parameters given the data. Standard MCMC packages like `CosmoMC` have become essential infrastructure in the field.
 
@@ -42,17 +42,17 @@ $$
 \pi(\{x_i\} | \text{data}) \propto f(\text{data} | \{x_i\}) \cdot p(\{x_i\})
 $$
 
-Here, $\pi$ is the **posterior** (what we want to know about the parameters after seeing the data), $f$ is the **likelihood** (the probability of the data given a model), and $p$ is the **prior** (our pre-existing beliefs). The goal is to compute expectations over this posterior, means, variances, confidence intervals, which requires evaluating integrals over all *D* dimensions of parameter space:
+Here, $\pi$ is the **posterior** (what we want to know about the parameters after seeing the data), $f$ is the **likelihood** (the probability of the data given a model), and $p$ is the **prior** (our pre-existing beliefs). The goal is to compute expectations over this posterior, means, variances, confidence intervals, which requires evaluating integrals over all _D_ dimensions of parameter space:
 
 $$
 \langle x_k | \text{data} \rangle = \int x_k \, \pi(\{x_i\} | \text{data}) \, dx_1 \, dx_2 \cdots dx_D
 $$
 
-At large *D*, these integrals become intractable analytically. Monte Carlo methods let us approximate them by drawing samples.
+At large _D_, these integrals become intractable analytically. Monte Carlo methods let us approximate them by drawing samples.
 
 ### The Monte Carlo Idea
 
-If we can draw *N* independent samples $x_1, x_2, \ldots, x_N$ from the target distribution $p(x)$, then any integral can be approximated as a simple average:
+If we can draw _N_ independent samples $x_1, x_2, \ldots, x_N$ from the target distribution $p(x)$, then any integral can be approximated as a simple average:
 
 $$
 I = \int f(x) \, p(x) \, dx \approx \frac{1}{N} \sum_{i=1}^{N} f(x_i)
@@ -102,6 +102,7 @@ H(\mathbf{x}, \mathbf{u}) = U(\mathbf{x}) + K(\mathbf{u})
 $$
 
 where:
+
 - $U(\mathbf{x}) = -\ln p(\mathbf{x})$ is the **potential energy** (the negative log of the target density)
 - $K(\mathbf{u}) = \mathbf{u}^T \mathbf{u} / 2$ is the **kinetic energy**
 
@@ -126,9 +127,11 @@ These dynamics are **time-reversible** and **volume-preserving**, crucial proper
 $$
 u_i(t + \tfrac{\epsilon}{2}) = u_i(t) - \tfrac{\epsilon}{2} \left(\frac{\partial U}{\partial x_i}\right)_{x(t)}
 $$
+
 $$
 x_i(t + \epsilon) = x_i(t) + \epsilon \, u_i(t + \tfrac{\epsilon}{2})
 $$
+
 $$
 u_i(t + \tfrac{\epsilon}{2}) = u_i(t) - \tfrac{\epsilon}{2} \left(\frac{\partial U}{\partial x_i}\right)_{x(t+\epsilon)}
 $$
@@ -156,7 +159,7 @@ Hamiltonian Monte Carlo
 14: end for
 ```
 
-The key insight: instead of taking one blind random step, HMC takes *N* coordinated leapfrog steps that follow the contours of the probability landscape. The trajectory can make **large jumps** to distant but equally probable regions of parameter space, dramatically reducing correlations between successive samples.
+The key insight: instead of taking one blind random step, HMC takes _N_ coordinated leapfrog steps that follow the contours of the probability landscape. The trajectory can make **large jumps** to distant but equally probable regions of parameter space, dramatically reducing correlations between successive samples.
 
 ### Tuning Parameters
 
@@ -194,9 +197,10 @@ where $P_0 = P(k=0)$ is the zero-frequency power. $E = 1$ is ideal; $E^{-1}$ tel
 The first test is clean and simple: sample from a 6-dimensional isotropic Gaussian ($\sigma_0 = 1$) using chains of length $N_{\text{samples}} = 8192$.
 
 {% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig1_chains.png" title="example image" class="img-fluid rounded z-depth-1" %}
-*Figure 1: Chain traces from HMC (top) and Metropolis (bottom) sampling a 6D Gaussian. The HMC chain shows rapid, full-amplitude oscillations, it's exploring the distribution efficiently. The Metropolis chain is sluggish by comparison, drifting slowly through parameter space.*
+_Figure 1: Chain traces from HMC (top) and Metropolis (bottom) sampling a 6D Gaussian. The HMC chain shows rapid, full-amplitude oscillations, it's exploring the distribution efficiently. The Metropolis chain is sluggish by comparison, drifting slowly through parameter space._
 
 The numbers tell a striking story:
+
 - **HMC acceptance rate: 99%** vs. **Metropolis: 25%**
 - HMC accepts independent samples **4 times more often** than traditional MCMC
 
@@ -204,7 +208,7 @@ The power spectra reveal the difference even more clearly:
 
 {% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig2_power_spectrum.png" title="example image" class="img-fluid rounded z-depth-1" %}
 
-*Figure 2: Power spectra of the two chains. The HMC (red solid line) reaches the white-noise floor at $k \approx 0.1$, while the Metropolis chain (blue dashed line) doesn't flatten until $k \approx 0.02$. The inset shows autocorrelation functions, HMC's dies off dramatically faster.*
+_Figure 2: Power spectra of the two chains. The HMC (red solid line) reaches the white-noise floor at $k \approx 0.1$, while the Metropolis chain (blue dashed line) doesn't flatten until $k \approx 0.02$. The inset shows autocorrelation functions, HMC's dies off dramatically faster._
 
 Reading the efficiency directly from the power spectra:
 
@@ -218,7 +222,7 @@ The marginal distributions confirm this visually:
 
 {% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig3_marginalized_6d.png" title="example image" class="img-fluid rounded z-depth-1" %}
 
-*Figure 3: Same chain length, very different results. HMC (left) recovers clean histograms and tight contour plots. The Metropolis sampler (right) produces noisy, ragged contours, it simply hasn't explored enough of the space.*
+_Figure 3: Same chain length, very different results. HMC (left) recovers clean histograms and tight contour plots. The Metropolis sampler (right) produces noisy, ragged contours, it simply hasn't explored enough of the space._
 
 ### The Scaling Advantage: HMC Gets Better in Higher Dimensions
 
@@ -226,7 +230,7 @@ This is the paper's most powerful result. Repeating the Gaussian test across dim
 
 {% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig4_efficiency_vs_dim.png" title="example image" class="img-fluid rounded z-depth-1" %}
 
-*Figure 4: The inverse efficiency ($1/E$) of HMC stays roughly constant (~3.3) as dimensionality increases. This is remarkable.*
+_Figure 4: The inverse efficiency ($1/E$) of HMC stays roughly constant (~3.3) as dimensionality increases. This is remarkable._
 
 For HMC, the efficiency **remains constant** regardless of dimensionality. Compare this to the optimal Metropolis algorithm, where efficiency scales as $E \approx 1/(3.3D)$. The ratio of efficiencies is therefore:
 
@@ -248,7 +252,7 @@ $$
 
 {% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig5_crescent.png" title="example image" class="img-fluid rounded z-depth-1" %}
 
-*Figure 5: HMC handles this curved, non-Gaussian distribution with ease. The 1000 samples (left) faithfully trace the crescent shape. The power spectrum (right) tells the quantitative story: HMC (red) reaches white noise much sooner than MCMC (blue), meaning far less wasted computation.*
+_Figure 5: HMC handles this curved, non-Gaussian distribution with ease. The 1000 samples (left) faithfully trace the crescent shape. The power spectrum (right) tells the quantitative story: HMC (red) reaches white noise much sooner than MCMC (blue), meaning far less wasted computation._
 
 Because HMC's leapfrog trajectories follow the natural curvature of the probability landscape, rolling along the crescent rather than bouncing across it, it navigates these geometries far more efficiently than a random walker ever could. This is directly relevant to cosmology, where degeneracies between parameters (e.g., between $\Omega_m$ and $H_0$) create exactly these kinds of curved ridges in the posterior.
 
@@ -258,14 +262,14 @@ Because HMC's leapfrog trajectories follow the natural curvature of the probabil
 
 Toy models are encouraging, but the real question is: does HMC hold up when plugged into an actual cosmological analysis pipeline? The paper applies HMC to the standard 6-parameter flat $\Lambda$CDM model, the same model that `CosmoMC` fits to WMAP data every day. The six parameters are:
 
-| Parameter | Description |
-|-----------|-------------|
-| $\Omega_b h^2$ | Baryon density |
-| $\Omega_c h^2$ | Cold dark matter density |
-| $\theta$ | Angular size of the sound horizon |
-| $\tau$ | Optical depth to reionization |
-| $n_s$ | Scalar spectral index |
-| $A_s$ | Amplitude of primordial fluctuations |
+| Parameter      | Description                          |
+| -------------- | ------------------------------------ |
+| $\Omega_b h^2$ | Baryon density                       |
+| $\Omega_c h^2$ | Cold dark matter density             |
+| $\theta$       | Angular size of the sound horizon    |
+| $\tau$         | Optical depth to reionization        |
+| $n_s$          | Scalar spectral index                |
+| $A_s$          | Amplitude of primordial fluctuations |
 
 ### The Gradient Challenge
 
@@ -289,7 +293,7 @@ A more sophisticated approach uses `Lico` (the likelihood routine from the `Pico
 
 {% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig6_gradients.png" title="example image" class="img-fluid rounded z-depth-1" %}
 
-*Figure 6: The two gradient estimation methods agree closely. The modified Lico captures more detail, but even the simple Gaussian approximation is surprisingly good.*
+_Figure 6: The two gradient estimation methods agree closely. The modified Lico captures more detail, but even the simple Gaussian approximation is surprisingly good._
 
 ### Head-to-Head: HMC vs. CosmoMC
 
@@ -300,25 +304,24 @@ With gradient estimation in hand, HMC is run on the full 6-parameter LCDM model 
 
 The autocorrelation lengths tell the story:
 
+|          | $\Omega_b h^2$ | $\Omega_c h^2$ | $\theta$ | $\tau$ | $n_s$ | $A_s$ | **Average** |
+| -------- | -------------- | -------------- | -------- | ------ | ----- | ----- | ----------- |
+| **MCMC** | 11.5           | 19.6           | 11.7     | 28.9   | 17.8  | 13.5  | **17.1**    |
+| **HMC**  | 3.2            | 2.8            | 4.0      | 2.9    | 3.4   | 3.8   | **3.3**     |
 
-| | $\Omega_b h^2$ | $\Omega_c h^2$ | $\theta$ | $\tau$ | $n_s$ | $A_s$ | **Average** |
-|---|---|---|---|---|---|---|---|
-| **MCMC** | 11.5 | 19.6 | 11.7 | 28.9 | 17.8 | 13.5 | **17.1** |
-| **HMC** | 3.2 | 2.8 | 4.0 | 2.9 | 3.4 | 3.8 | **3.3** |
-
-*Table I: Autocorrelation lengths of the sampled chains from the 6-parameter flat LCDM model.*
+_Table I: Autocorrelation lengths of the sampled chains from the 6-parameter flat LCDM model._
 
 The average autocorrelation length drops from **17.1** (Metropolis) to **3.3** (HMC), a factor of ~5 improvement. The power spectra confirm this:
 
 {% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig7_power_spectra_lcdm.png" title="example image" class="img-fluid rounded z-depth-1" %}
 
-*Figure 7: Power spectra for HMC (red solid) and Metropolis (blue dashed) on the real LCDM model. The inset shows autocorrelation functions for $\Omega_b h^2$. HMC is almost a factor of 6 more efficient, and nearly an order of magnitude better overall.*
+_Figure 7: Power spectra for HMC (red solid) and Metropolis (blue dashed) on the real LCDM model. The inset shows autocorrelation functions for $\Omega_b h^2$. HMC is almost a factor of 6 more efficient, and nearly an order of magnitude better overall._
 
 The resulting marginalized distributions from HMC are clean and well-converged:
 
 {% include figure.liquid loading="eager" path="assets/img/blog/hmc-cosmology-figures/fig8_lcdm_marginalized.png" title="example image" class="img-fluid rounded z-depth-1" %}
 
-*Figure 8: Posterior distributions for all six cosmological parameters recovered by HMC. These match the expected results while requiring much shorter chains.*
+_Figure 8: Posterior distributions for all six cosmological parameters recovered by HMC. These match the expected results while requiring much shorter chains._
 
 ---
 
@@ -326,13 +329,13 @@ The resulting marginalized distributions from HMC are clean and well-converged:
 
 **It gets better as problems get harder.** While Metropolis efficiency degrades as $1/D$, HMC stays constant. In $D$ dimensions, you need $D$ times fewer samples. For the 6-parameter $\Lambda$CDM model, that's a factor of ~6. For future models with 20+ parameters, the advantage becomes transformative.
 
-**It's exact.** Unlike interpolation-based speed-ups, HMC samples from the *true* posterior distribution. The only approximation is in the gradient estimation used to steer the leapfrog trajectories, and even a rough Gaussian estimate of the gradient is enough to improve efficiency by a factor of 3. Better gradients mean higher acceptance rates, but the sampling remains exact regardless.
+**It's exact.** Unlike interpolation-based speed-ups, HMC samples from the _true_ posterior distribution. The only approximation is in the gradient estimation used to steer the leapfrog trajectories, and even a rough Gaussian estimate of the gradient is enough to improve efficiency by a factor of 3. Better gradients mean higher acceptance rates, but the sampling remains exact regardless.
 
 **It handles ugly distributions gracefully.** The banana-shaped degeneracies common in cosmological posteriors (think $\Omega_m$, $H_0$ or $\tau$, $A_s$) are precisely the situations where Metropolis flounders. HMC's dynamics naturally follow the curvature.
 
 **It's easy to deploy.** The paper demonstrates that HMC can be added as a module to existing parameter estimation codes like `CosmoMC`. No need to rewrite the pipeline, just swap the sampler.
 
-**It stacks with other speed-ups.** Methods like `Pico` and `CMBWarp` reduce the *cost per likelihood evaluation*. HMC reduces the *number of evaluations you need*. Use both, and the total speed-up is multiplicative.
+**It stacks with other speed-ups.** Methods like `Pico` and `CMBWarp` reduce the _cost per likelihood evaluation_. HMC reduces the _number of evaluations you need_. Use both, and the total speed-up is multiplicative.
 
 ---
 
@@ -340,10 +343,10 @@ The resulting marginalized distributions from HMC are clean and well-converged:
 
 The core message of this paper is simple and powerful: **don't walk when you can glide.** The Metropolis algorithm explores parameter space like a blindfolded hiker taking random steps on a mountain, most steps are wasted, and progress is painfully slow. Hamiltonian Monte Carlo gives the hiker a topographic map and a pair of skis. By converting the probability landscape into a physical system and letting Hamiltonian dynamics do the navigation, HMC makes large, informed jumps that land in high-probability regions almost every time.
 
-For the standard 6-parameter cosmological model, HMC delivers nearly an **order of magnitude improvement** in efficiency over the Metropolis method. And unlike speed-ups that reduce the cost per step (faster power spectrum codes, interpolated likelihoods), HMC reduces the *number of steps you need in the first place*. The two approaches are complementary, combine them, and Bayesian parameter estimation becomes remarkably fast.
+For the standard 6-parameter cosmological model, HMC delivers nearly an **order of magnitude improvement** in efficiency over the Metropolis method. And unlike speed-ups that reduce the cost per step (faster power spectrum codes, interpolated likelihoods), HMC reduces the _number of steps you need in the first place_. The two approaches are complementary, combine them, and Bayesian parameter estimation becomes remarkably fast.
 
 Perhaps most importantly, the efficiency advantage scales with dimensionality. As the field moves toward models with more free parameters, extended dark energy equations of state, modified gravity, neutrino masses, tensor modes, the case for HMC only gets stronger. In a $D$-dimensional parameter space, you need $D$ times fewer HMC samples than Metropolis samples. That's not an incremental improvement, it's a qualitative change in what's computationally feasible.
 
 ---
 
-*Paper: Amir Hajian, "Efficient Cosmological Parameter Estimation with Hamiltonian Monte Carlo," [Phys. Rev. D **75**, 083525 (2007)](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.75.083525) | [arXiv:astro-ph/0608679](https://arxiv.org/abs/astro-ph/0608679).*
+_Paper: Amir Hajian, "Efficient Cosmological Parameter Estimation with Hamiltonian Monte Carlo," [Phys. Rev. D **75**, 083525 (2007)](https://journals.aps.org/prd/abstract/10.1103/PhysRevD.75.083525) | [arXiv:astro-ph/0608679](https://arxiv.org/abs/astro-ph/0608679)._
