@@ -72,40 +72,7 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/research-notes/blog/";
               },
-            },{id: "post-battle-of-agents-part-3",
-        
-          title: "Battle of Agents - Part 3",
-        
-        description: "how to choose your agent architecture",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/research-notes/blog/2026/adk-vs-cli-3/";
-          
-        },
-      },{id: "post-battle-of-agents-part-2",
-        
-          title: "Battle of Agents - Part 2",
-        
-        description: "building a multi-agent code reviewer with CLI tools",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/research-notes/blog/2026/adk-vs-cli-2/";
-          
-        },
-      },{id: "post-battle-of-agents-part-1",
-        
-          title: "Battle of Agents - Part 1",
-        
-        description: "building a multi-agent code reviewer with Google ADK and running it locally with ollama",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/research-notes/blog/2026/adk-vs-cli-1/";
-          
-        },
-      },{id: "post-porch-pirates-vs-delivery-drivers-part-2-making-the-system-agentic",
+            },{id: "post-porch-pirates-vs-delivery-drivers-part-2-making-the-system-agentic",
         
           title: "Porch Pirates vs. Delivery Drivers, Part 2 - Making the System Agentic",
         
